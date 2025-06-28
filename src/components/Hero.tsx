@@ -41,7 +41,7 @@ const Hero = () => {
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Join thousands of learners worldwide and unlock your potential with our cutting-edge educational platform
+            Bangladesh's Gen Z Deserves Better — An Upcoming EdTech Revolution
           </p>
         </div>
 
@@ -60,7 +60,7 @@ const Hero = () => {
             className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold rounded-full backdrop-blur-sm bg-white/10"
           >
             <Play className="mr-2 h-5 w-5" />
-            Watch Demo
+            Watch Intro
           </Button>
         </div>
 

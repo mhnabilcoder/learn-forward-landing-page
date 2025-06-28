@@ -8,15 +8,18 @@ const AdvisingBody = () => {
       name: "Mujibur Rahman",
       credentials: "ACCA Member & CEO of MR-Accountants",
       expertise: "Financial Systems & Strategic Planning",
-      description: "Multiple edtech startups Chief Accountant, helps us with financial systems implementation, transparent financials preparation, and better financial planning.",
-      bgColor: "from-blue-500 to-indigo-600"
+      description: "Has advised and supported multiple international EdTech startups, including CodeNinja, TutorChase, and Lumiere Education, serving as a Fractional CFO. As an advisor, he helps us build strong financial systems, establish transparent reporting practices, and craft smarter, long-term financial strategies. His guidance ensures we stay investor-ready, cost-efficient, and financially aligned with our growth goals.",
+      bgColor: "from-blue-500 to-indigo-600",
+      hasImage: true,
+      imageUrl: "/lovable-uploads/8b1a45e2-9d85-4b67-9eb6-59b0a2909411.png"
     },
     {
       name: "Md. Farabi",
       credentials: "IBA DU Graduate & Edtech Veteran",
-      expertise: "Business Strategy & Operations",
-      description: "Previously worked in a leading edtech platform, helps us plan business strategic decisions and operational excellence.",
-      bgColor: "from-purple-500 to-blue-600"
+      expertise: "Business Strategy & Growth",
+      description: "Previously worked in a leading edtech platform, helps us plan business strategic decisions and growth acceleration with precise timing and market insights.",
+      bgColor: "from-purple-500 to-blue-600",
+      hasImage: false
     }
   ];
 
@@ -39,9 +42,19 @@ const AdvisingBody = () => {
               className="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-blue-100"
             >
               <div className="text-center mb-6">
-                <div className={`w-24 h-24 bg-gradient-to-br ${advisor.bgColor} rounded-full mx-auto mb-6 flex items-center justify-center text-white shadow-lg`}>
-                  <User className="h-12 w-12" />
-                </div>
+                {advisor.hasImage ? (
+                  <div className="w-24 h-24 mx-auto mb-6 overflow-hidden rounded-full shadow-lg">
+                    <img 
+                      src={advisor.imageUrl} 
+                      alt={advisor.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className={`w-24 h-24 bg-gradient-to-br ${advisor.bgColor} rounded-full mx-auto mb-6 flex items-center justify-center text-white shadow-lg`}>
+                    <User className="h-12 w-12" />
+                  </div>
+                )}
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">{advisor.name}</h3>
                 <p className="text-blue-600 font-semibold mb-3 text-lg">{advisor.credentials}</p>
                 <div className="flex items-center justify-center gap-2 text-purple-600 mb-4">
@@ -50,7 +63,7 @@ const AdvisingBody = () => {
                 </div>
               </div>
               
-              <p className="text-gray-700 leading-relaxed text-center mb-6 text-lg">
+              <p className="text-gray-700 leading-relaxed text-center mb-6 text-base">
                 {advisor.description}
               </p>
               

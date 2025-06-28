@@ -29,12 +29,11 @@ const About = () => {
                 MN
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Mahedi Hasan Nabil</h3>
-              <p className="text-blue-600 font-semibold mb-4">Co-Founder & CEO</p>
+              <p className="text-blue-600 font-semibold mb-4">Co-Founder & COO</p>
             </div>
             
             <p className="text-gray-600 mb-6 leading-relaxed">
-              Passionate about creating innovative educational solutions that make learning accessible to everyone. 
-              With extensive experience in edtech and a vision for the future of online education.
+              As a strategist at heart, I align internal operations with long-term business growth, giving ideas a clear structure, commercial direction, and the ability to scale. My focus is on building systems that make innovation sustainable.
             </p>
             
             <div className="flex justify-center">
@@ -55,12 +54,11 @@ const About = () => {
                 AS
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Adnan Shihab</h3>
-              <p className="text-blue-600 font-semibold mb-4">Co-Founder & CTO</p>
+              <p className="text-blue-600 font-semibold mb-4">Co-Founder & CEO</p>
             </div>
             
             <p className="text-gray-600 mb-6 leading-relaxed">
-              Technology enthusiast with a deep understanding of scalable educational platforms. 
-              Dedicated to building robust, user-friendly systems that enhance the learning experience.
+              Passionate about building innovative educational solutions that not only make learning accessible to all, but also deliver a seamless user experience, with a vision to unify the fragmented education market under one powerful, integrated platform.
             </p>
             
             <div className="flex justify-center">

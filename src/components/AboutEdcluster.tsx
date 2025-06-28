@@ -20,7 +20,7 @@ const AboutEdcluster = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
           {/* Left side - Illustration */}
           <div className="flex justify-center">
             <div className="relative">
@@ -88,6 +88,33 @@ const AboutEdcluster = () => {
                 Visit The Platform
               </Button>
             </div>
+          </div>
+        </div>
+
+        {/* Value Proposition Boxes */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300">
+            <Users className="h-16 w-16 text-blue-600 mx-auto mb-6" />
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Community Driven</h3>
+            <p className="text-gray-700 leading-relaxed">
+              Join a vibrant community of learners, mentors, and industry professionals who support each other's growth.
+            </p>
+          </div>
+          
+          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300">
+            <Target className="h-16 w-16 text-purple-600 mx-auto mb-6" />
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Goal Oriented</h3>
+            <p className="text-gray-700 leading-relaxed">
+              Every course is designed with clear learning objectives and practical outcomes to achieve your career goals.
+            </p>
+          </div>
+          
+          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300">
+            <Award className="h-16 w-16 text-green-600 mx-auto mb-6" />
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Excellence First</h3>
+            <p className="text-gray-700 leading-relaxed">
+              We maintain the highest standards in content quality, instructor expertise, and student success rates.
+            </p>
           </div>
         </div>
       </div>
