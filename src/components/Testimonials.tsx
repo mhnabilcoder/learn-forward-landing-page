@@ -114,17 +114,17 @@ const Testimonials = () => {
               {testimonials.map((testimonial, index) => (
                 <div 
                   key={index}
-                  className="flex-none w-96 bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 relative"
+                  className="flex-none w-80 h-64 bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 relative flex flex-col"
                 >
                   <Quote className="absolute top-4 right-4 h-6 w-6 text-blue-300" />
                   
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">
                       {testimonial.avatar}
                     </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
-                      <p className="text-gray-600 text-sm">{testimonial.role}</p>
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-bold text-gray-900 truncate">{testimonial.name}</h4>
+                      <p className="text-gray-600 text-sm truncate">{testimonial.role}</p>
                     </div>
                   </div>
                   
@@ -134,7 +134,9 @@ const Testimonials = () => {
                     ))}
                   </div>
                   
-                  <p className="text-gray-700 leading-relaxed italic">"{testimonial.comment}"</p>
+                  <p className="text-gray-700 leading-relaxed italic text-sm flex-1 overflow-hidden">
+                    "{testimonial.comment.length > 120 ? testimonial.comment.substring(0, 120) + '...' : testimonial.comment}"
+                  </p>
                 </div>
               ))}
             </div>

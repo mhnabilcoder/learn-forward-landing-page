@@ -1,30 +1,12 @@
 
 import React from 'react';
-import { BookOpen, Users, Award, Target } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Check, Download, Users, Target, Award, Heart } from 'lucide-react';
 
 const AboutEdcluster = () => {
-  const features = [
-    {
-      icon: BookOpen,
-      title: "Expert-Led Courses",
-      description: "Learn from industry professionals with real-world experience"
-    },
-    {
-      icon: Users,
-      title: "Community Learning",
-      description: "Connect with peers and build lasting professional relationships"
-    },
-    {
-      icon: Award,
-      title: "Certified Programs",
-      description: "Earn recognized certifications to advance your career"
-    },
-    {
-      icon: Target,
-      title: "Personalized Path",
-      description: "Customized learning journeys tailored to your goals"
-    }
-  ];
+  const handleVisitPlatform = () => {
+    console.log('Redirecting to main platform...');
+  };
 
   return (
     <section className="py-20 bg-white">
@@ -33,65 +15,80 @@ const AboutEdcluster = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             About <span className="text-blue-600">Edcluster</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Edcluster is revolutionizing education by making quality learning accessible to everyone. 
-            Our platform combines cutting-edge technology with expert instruction to deliver 
-            transformative educational experiences.
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            Transforming education through technology and making quality learning accessible to everyone.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-          <div>
-            <h3 className="text-3xl font-bold text-gray-900 mb-6">
-              Empowering Learners Worldwide
-            </h3>
-            <p className="text-gray-600 text-lg leading-relaxed mb-6">
-              At Edcluster, we believe education should be flexible, engaging, and results-driven. 
-              Our comprehensive platform offers courses across various disciplines, designed by 
-              industry experts and delivered through innovative learning methodologies.
-            </p>
-            <p className="text-gray-600 text-lg leading-relaxed">
-              Whether you're a student looking to enhance your skills, a professional seeking 
-              career advancement, or an organization aiming to upskill your workforce, 
-              Edcluster provides the tools and resources you need to succeed.
-            </p>
-          </div>
-          
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-8">
-            <div className="grid grid-cols-2 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">50K+</div>
-                <div className="text-gray-700">Students Enrolled</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
-                <div className="text-gray-700">Expert Instructors</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">1000+</div>
-                <div className="text-gray-700">Course Offerings</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">95%</div>
-                <div className="text-gray-700">Completion Rate</div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Left side - Illustration */}
+          <div className="flex justify-center">
+            <div className="relative">
+              <div className="w-80 h-80 bg-gradient-to-br from-blue-100 to-purple-100 rounded-3xl flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-8 flex items-center justify-center shadow-2xl">
+                    <Download className="h-16 w-16 text-white" />
+                  </div>
+                  <div className="w-64 h-12 bg-gradient-to-r from-purple-500 to-blue-600 rounded-full mx-auto flex items-center px-6 shadow-xl">
+                    <div className="w-8 h-8 bg-white rounded-full"></div>
+                    <div className="flex-1 h-2 bg-white/30 rounded-full ml-4">
+                      <div className="w-3/4 h-full bg-white rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
-            <div 
-              key={index}
-              className="text-center p-6 bg-gray-50 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2"
-            >
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <feature.icon className="h-8 w-8 text-blue-600" />
-              </div>
-              <h4 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h4>
-              <p className="text-gray-600">{feature.description}</p>
+          {/* Right side - Content */}
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-3xl font-bold text-gray-900 mb-6">Our Mission</h3>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                At Edcluster, we're on a mission to bridge the gap between education and career success. We believe that quality education should be accessible to everyone, regardless of their background or location.
+              </p>
             </div>
-          ))}
+
+            <div>
+              <h3 className="text-3xl font-bold text-gray-900 mb-6">What Sets Us Apart</h3>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Check className="h-4 w-4 text-white" />
+                  </div>
+                  <p className="text-lg text-gray-700">Industry-leading experts as instructors</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Check className="h-4 w-4 text-white" />
+                  </div>
+                  <p className="text-lg text-gray-700">Hands-on projects and real-world applications</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Check className="h-4 w-4 text-white" />
+                  </div>
+                  <p className="text-lg text-gray-700">Personalized learning paths tailored to your goals</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Check className="h-4 w-4 text-white" />
+                  </div>
+                  <p className="text-lg text-gray-700">Community support and networking opportunities</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4">
+              <Button 
+                onClick={handleVisitPlatform}
+                size="lg" 
+                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-12 py-4 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl"
+              >
+                Visit The Platform
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
