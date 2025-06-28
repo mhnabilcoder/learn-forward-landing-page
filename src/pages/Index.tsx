@@ -1,7 +1,9 @@
 
 import React from 'react';
 import Hero from '../components/Hero';
+import AboutEdcluster from '../components/AboutEdcluster';
 import About from '../components/About';
+import SupportingOrganizations from '../components/SupportingOrganizations';
 import Organizations from '../components/Organizations';
 import Testimonials from '../components/Testimonials';
 import AdvisingBody from '../components/AdvisingBody';
@@ -9,9 +11,11 @@ import Footer from '../components/Footer';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
       <Hero />
+      <AboutEdcluster />
       <About />
+      <SupportingOrganizations />
       <Organizations />
       <Testimonials />
       <AdvisingBody />

@@ -35,14 +35,14 @@ const Organizations = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Trusted by <span className="text-blue-600">Leading Organizations</span>
+            Our <span className="text-blue-600">Onboarded Clients</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Join hundreds of organizations that have chosen us to power their learning initiatives
+            Partners who trust us to deliver exceptional educational experiences
           </p>
         </div>
 
@@ -50,10 +50,10 @@ const Organizations = () => {
           {organizations.map((org, index) => (
             <div 
               key={index}
-              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+              className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
             >
               <div className="text-center mb-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-lg">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-lg">
                   {org.logo}
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{org.name}</h3>
