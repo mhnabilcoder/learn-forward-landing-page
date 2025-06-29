@@ -21,20 +21,35 @@ const AboutEdcluster = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
-          {/* Left side - Small square boxes */}
-          <div className="flex justify-center">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="w-24 h-24 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 flex items-center justify-center hover:shadow-lg transition-all duration-300">
-                <Users className="h-8 w-8 text-blue-600" />
+          {/* Left side - Tile layout */}
+          <div className="space-y-4">
+            <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-6 flex items-center gap-4 hover:shadow-lg transition-all duration-300">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Users className="h-6 w-6 text-white" />
               </div>
-              <div className="w-24 h-24 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 flex items-center justify-center hover:shadow-lg transition-all duration-300">
-                <Target className="h-8 w-8 text-purple-600" />
+              <div>
+                <h4 className="font-bold text-gray-900 text-lg mb-1">Community Driven</h4>
+                <p className="text-gray-600 text-sm">Connect with learners and industry professionals</p>
               </div>
-              <div className="w-24 h-24 bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 flex items-center justify-center hover:shadow-lg transition-all duration-300">
-                <Award className="h-8 w-8 text-green-600" />
+            </div>
+
+            <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-6 flex items-center gap-4 hover:shadow-lg transition-all duration-300">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Target className="h-6 w-6 text-white" />
               </div>
-              <div className="w-24 h-24 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-4 flex items-center justify-center hover:shadow-lg transition-all duration-300">
-                <Heart className="h-8 w-8 text-indigo-600" />
+              <div>
+                <h4 className="font-bold text-gray-900 text-lg mb-1">Goal Oriented</h4>
+                <p className="text-gray-600 text-sm">Clear learning objectives with practical outcomes</p>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-2xl p-6 flex items-center gap-4 hover:shadow-lg transition-all duration-300">
+              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Award className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 text-lg mb-1">Excellence First</h4>
+                <p className="text-gray-600 text-sm">Highest standards in content quality and expertise</p>
               </div>
             </div>
           </div>
