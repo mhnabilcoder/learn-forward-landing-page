@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Check, Download, Users, Target, Award, Heart } from 'lucide-react';
+import { Check, Users, Target, Award, Heart } from 'lucide-react';
 
 const AboutEdcluster = () => {
   const handleVisitPlatform = () => {
@@ -21,21 +21,20 @@ const AboutEdcluster = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
-          {/* Left side - Illustration */}
+          {/* Left side - Small square boxes */}
           <div className="flex justify-center">
-            <div className="relative">
-              <div className="w-80 h-80 bg-gradient-to-br from-blue-100 to-purple-100 rounded-3xl flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-8 flex items-center justify-center shadow-2xl">
-                    <Download className="h-16 w-16 text-white" />
-                  </div>
-                  <div className="w-64 h-12 bg-gradient-to-r from-purple-500 to-blue-600 rounded-full mx-auto flex items-center px-6 shadow-xl">
-                    <div className="w-8 h-8 bg-white rounded-full"></div>
-                    <div className="flex-1 h-2 bg-white/30 rounded-full ml-4">
-                      <div className="w-3/4 h-full bg-white rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="w-24 h-24 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 flex items-center justify-center hover:shadow-lg transition-all duration-300">
+                <Users className="h-8 w-8 text-blue-600" />
+              </div>
+              <div className="w-24 h-24 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 flex items-center justify-center hover:shadow-lg transition-all duration-300">
+                <Target className="h-8 w-8 text-purple-600" />
+              </div>
+              <div className="w-24 h-24 bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 flex items-center justify-center hover:shadow-lg transition-all duration-300">
+                <Award className="h-8 w-8 text-green-600" />
+              </div>
+              <div className="w-24 h-24 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-4 flex items-center justify-center hover:shadow-lg transition-all duration-300">
+                <Heart className="h-8 w-8 text-indigo-600" />
               </div>
             </div>
           </div>
@@ -46,6 +45,13 @@ const AboutEdcluster = () => {
               <h3 className="text-3xl font-bold text-gray-900 mb-6">Our Mission</h3>
               <p className="text-lg text-gray-700 leading-relaxed">
                 At Edcluster, we're on a mission to bridge the gap between education and career success. We believe that quality education should be accessible to everyone, regardless of their background or location.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-3xl font-bold text-gray-900 mb-6">Our Vision</h3>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                To create a unified educational ecosystem that empowers Bangladesh's Gen Z with world-class learning opportunities, fostering innovation and preparing the next generation for a technology-driven future.
               </p>
             </div>
 

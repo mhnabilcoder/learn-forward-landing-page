@@ -114,7 +114,7 @@ const Testimonials = () => {
               {testimonials.map((testimonial, index) => (
                 <div 
                   key={index}
-                  className="flex-none w-80 h-64 bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 relative flex flex-col"
+                  className="flex-none w-80 bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 relative flex flex-col min-h-[280px]"
                 >
                   <Quote className="absolute top-4 right-4 h-6 w-6 text-blue-300" />
                   
@@ -134,8 +134,8 @@ const Testimonials = () => {
                     ))}
                   </div>
                   
-                  <p className="text-gray-700 leading-relaxed italic text-sm flex-1 overflow-hidden">
-                    "{testimonial.comment.length > 120 ? testimonial.comment.substring(0, 120) + '...' : testimonial.comment}"
+                  <p className="text-gray-700 leading-relaxed italic text-sm flex-1 whitespace-normal overflow-hidden text-ellipsis">
+                    "{testimonial.comment}"
                   </p>
                 </div>
               ))}
