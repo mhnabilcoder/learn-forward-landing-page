@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 const HeroEditor = () => {
   const [content, setContent] = useState({
     id: '',
+    brand_name: '',
     title: '',
     subtitle: '',
     description: '',
@@ -66,6 +67,15 @@ const HeroEditor = () => {
         <CardTitle>Hero Section Editor</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium mb-1">Brand Name</label>
+          <Input
+            value={content.brand_name}
+            onChange={(e) => setContent({...content, brand_name: e.target.value})}
+            placeholder="EdCluster"
+          />
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Title</label>

@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Upload, Link } from 'lucide-react';
 
 const OrganizationsEditor = () => {
   const [supportingOrgs, setSupportingOrgs] = useState([]);
@@ -33,6 +33,37 @@ const OrganizationsEditor = () => {
     } catch (error) {
       console.error('Error fetching organizations:', error);
       toast.error('Failed to load organizations');
+    }
+  };
+
+  const handleImageUpload = async (file, type, index) => {
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${type}-org-${Date.now()}.${fileExt}`;
+      const filePath = `organizations/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('images')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('images')
+        .getPublicUrl(filePath);
+
+      if (type === 'supporting') {
+        updateSupportingOrg(index, 'logo_url', publicUrl);
+        updateSupportingOrg(index, 'has_logo', true);
+      } else {
+        updateClientOrg(index, 'logo_url', publicUrl);
+        updateClientOrg(index, 'has_logo', true);
+      }
+      
+      toast.success('Logo uploaded successfully!');
+    } catch (error) {
+      console.error('Error uploading logo:', error);
+      toast.error('Failed to upload logo');
     }
   };
 
@@ -93,6 +124,8 @@ const OrganizationsEditor = () => {
     const newOrg = {
       name: '',
       logo_text: '',
+      logo_url: '',
+      has_logo: false,
       order_index: supportingOrgs.length + 1
     };
     setSupportingOrgs([...supportingOrgs, newOrg]);
@@ -127,7 +160,8 @@ const OrganizationsEditor = () => {
     const newOrg = {
       name: '',
       logo_text: '',
-      website: '',
+      logo_url: '',
+      has_logo: false,
       testimonial: '',
       rating: 5,
       order_index: clientOrgs.length + 1
@@ -203,13 +237,61 @@ const OrganizationsEditor = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1">Logo Text</label>
+                    <label className="block text-sm font-medium mb-1">Logo Text (Fallback)</label>
                     <Input
                       value={org.logo_text}
                       onChange={(e) => updateSupportingOrg(index, 'logo_text', e.target.value)}
                       placeholder="UTC"
                     />
                   </div>
+                </div>
+
+                <div className="mt-4">
+                  <label className="block text-sm font-medium mb-2">Organization Logo</label>
+                  <Tabs defaultValue="link" className="w-full">
+                    <TabsList>
+                      <TabsTrigger value="link">
+                        <Link className="h-4 w-4 mr-2" />
+                        Logo Link
+                      </TabsTrigger>
+                      <TabsTrigger value="upload">
+                        <Upload className="h-4 w-4 mr-2" />
+                        Upload Logo
+                      </TabsTrigger>
+                    </TabsList>
+                    
+                    <TabsContent value="link" className="space-y-2">
+                      <Input
+                        value={org.logo_url || ''}
+                        onChange={(e) => {
+                          updateSupportingOrg(index, 'logo_url', e.target.value);
+                          updateSupportingOrg(index, 'has_logo', !!e.target.value);
+                        }}
+                        placeholder="https://example.com/logo.png"
+                      />
+                      {org.logo_url && (
+                        <div className="mt-2">
+                          <img src={org.logo_url} alt="Logo Preview" className="w-16 h-16 object-contain rounded" />
+                        </div>
+                      )}
+                    </TabsContent>
+                    
+                    <TabsContent value="upload" className="space-y-2">
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) handleImageUpload(file, 'supporting', index);
+                        }}
+                      />
+                      {org.logo_url && (
+                        <div className="mt-2">
+                          <img src={org.logo_url} alt="Logo Preview" className="w-16 h-16 object-contain rounded" />
+                        </div>
+                      )}
+                    </TabsContent>
+                  </Tabs>
                 </div>
               </Card>
             ))}
@@ -241,7 +323,7 @@ const OrganizationsEditor = () => {
                   </Button>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">Name</label>
                     <Input
@@ -251,21 +333,61 @@ const OrganizationsEditor = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1">Logo Text</label>
+                    <label className="block text-sm font-medium mb-1">Logo Text (Fallback)</label>
                     <Input
                       value={org.logo_text}
                       onChange={(e) => updateClientOrg(index, 'logo_text', e.target.value)}
                       placeholder="TC"
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-1">Website</label>
-                    <Input
-                      value={org.website}
-                      onChange={(e) => updateClientOrg(index, 'website', e.target.value)}
-                      placeholder="https://techcorp.com"
-                    />
-                  </div>
+                </div>
+
+                <div className="mt-4">
+                  <label className="block text-sm font-medium mb-2">Organization Logo</label>
+                  <Tabs defaultValue="link" className="w-full">
+                    <TabsList>
+                      <TabsTrigger value="link">
+                        <Link className="h-4 w-4 mr-2" />
+                        Logo Link
+                      </TabsTrigger>
+                      <TabsTrigger value="upload">
+                        <Upload className="h-4 w-4 mr-2" />
+                        Upload Logo
+                      </TabsTrigger>
+                    </TabsList>
+                    
+                    <TabsContent value="link" className="space-y-2">
+                      <Input
+                        value={org.logo_url || ''}
+                        onChange={(e) => {
+                          updateClientOrg(index, 'logo_url', e.target.value);
+                          updateClientOrg(index, 'has_logo', !!e.target.value);
+                        }}
+                        placeholder="https://example.com/logo.png"
+                      />
+                      {org.logo_url && (
+                        <div className="mt-2">
+                          <img src={org.logo_url} alt="Logo Preview" className="w-16 h-16 object-contain rounded" />
+                        </div>
+                      )}
+                    </TabsContent>
+                    
+                    <TabsContent value="upload" className="space-y-2">
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) handleImageUpload(file, 'client', index);
+                        }}
+                      />
+                      {org.logo_url && (
+                        <div className="mt-2">
+                          <img src={org.logo_url} alt="Logo Preview" className="w-16 h-16 object-contain rounded" />
+                        </div>
+                      )}
+                    </TabsContent>
+                  </Tabs>
                 </div>
                 
                 <div className="mt-4">

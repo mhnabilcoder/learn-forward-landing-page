@@ -44,9 +44,19 @@ const SupportingOrganizations = () => {
                 className="flex-none w-64 bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
               >
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-sm">
-                    {supporter.logo_text}
-                  </div>
+                  {supporter.has_logo && supporter.logo_url ? (
+                    <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                      <img 
+                        src={supporter.logo_url} 
+                        alt={supporter.name}
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-sm">
+                      {supporter.logo_text}
+                    </div>
+                  )}
                   <h3 className="text-lg font-semibold text-gray-900">{supporter.name}</h3>
                 </div>
               </div>

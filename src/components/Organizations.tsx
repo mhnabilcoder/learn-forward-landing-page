@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
 const Organizations = () => {
@@ -43,9 +43,19 @@ const Organizations = () => {
               className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
             >
               <div className="text-center mb-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-lg">
-                  {org.logo_text}
-                </div>
+                {org.has_logo && org.logo_url ? (
+                  <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                    <img 
+                      src={org.logo_url} 
+                      alt={org.name}
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-lg">
+                    {org.logo_text}
+                  </div>
+                )}
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{org.name}</h3>
                 <div className="flex justify-center mb-3">
                   {[...Array(org.rating)].map((_, i) => (
@@ -54,15 +64,7 @@ const Organizations = () => {
                 </div>
               </div>
               
-              <p className="text-gray-600 text-sm mb-4 italic">"{org.testimonial}"</p>
-              
-              <button 
-                onClick={() => window.open(org.website, '_blank')}
-                className="w-full flex items-center justify-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
-              >
-                Visit Website
-                <ExternalLink className="h-4 w-4" />
-              </button>
+              <p className="text-gray-600 text-sm italic text-center">"{org.testimonial}"</p>
             </div>
           ))}
         </div>

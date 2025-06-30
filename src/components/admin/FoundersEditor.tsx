@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Upload, Link } from 'lucide-react';
 
 const FoundersEditor = () => {
   const [founders, setFounders] = useState([]);
@@ -28,6 +29,31 @@ const FoundersEditor = () => {
     } catch (error) {
       console.error('Error fetching founders:', error);
       toast.error('Failed to load founders');
+    }
+  };
+
+  const handleImageUpload = async (index, file) => {
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `founder-${Date.now()}.${fileExt}`;
+      const filePath = `founders/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('images')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('images')
+        .getPublicUrl(filePath);
+
+      updateFounder(index, 'image_url', publicUrl);
+      updateFounder(index, 'has_image', true);
+      toast.success('Image uploaded successfully!');
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast.error('Failed to upload image');
     }
   };
 
@@ -162,6 +188,54 @@ const FoundersEditor = () => {
                   placeholder="https://mahedi-portfolio.com"
                 />
               </div>
+            </div>
+
+            <div className="mt-4">
+              <label className="block text-sm font-medium mb-2">Profile Image</label>
+              <Tabs defaultValue="link" className="w-full">
+                <TabsList>
+                  <TabsTrigger value="link">
+                    <Link className="h-4 w-4 mr-2" />
+                    Image Link
+                  </TabsTrigger>
+                  <TabsTrigger value="upload">
+                    <Upload className="h-4 w-4 mr-2" />
+                    Upload Image
+                  </TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="link" className="space-y-2">
+                  <Input
+                    value={founder.image_url || ''}
+                    onChange={(e) => {
+                      updateFounder(index, 'image_url', e.target.value);
+                      updateFounder(index, 'has_image', !!e.target.value);
+                    }}
+                    placeholder="https://example.com/image.jpg"
+                  />
+                  {founder.image_url && (
+                    <div className="mt-2">
+                      <img src={founder.image_url} alt="Preview" className="w-16 h-16 object-cover rounded-full" />
+                    </div>
+                  )}
+                </TabsContent>
+                
+                <TabsContent value="upload" className="space-y-2">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) handleImageUpload(index, file);
+                    }}
+                  />
+                  {founder.image_url && (
+                    <div className="mt-2">
+                      <img src={founder.image_url} alt="Preview" className="w-16 h-16 object-cover rounded-full" />
+                    </div>
+                  )}
+                </TabsContent>
+              </Tabs>
             </div>
             
             <div className="mt-4">

@@ -1,14 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Play, Users, BookOpen, Award } from 'lucide-react';
+import { Play, TrendingUp, Users, Award } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
 const Hero = () => {
   const [heroContent, setHeroContent] = useState({
+    brand_name: 'EdCluster',
     title: 'Transform Your',
     subtitle: 'Learning Journey',
-    description: "Bangladesh's Gen Z Deserves Better — An Upcoming EdTech Revolution",
+    description: "Bangladesh's Gen Z Deserves Better. We're Building Tomorrow's Learning Platform Today.",
     primary_button_text: 'Visit The Platform',
     secondary_button_text: 'Watch Intro',
     stat1_number: '50K+',
@@ -37,79 +38,77 @@ const Hero = () => {
     }
   };
 
-  const handleVisitPlatform = () => {
-    console.log('Redirecting to platform...');
-  };
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Enhanced background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900"></div>
-      
-      {/* Animated background mesh */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/30 via-purple-500/20 to-indigo-600/30 animate-pulse"></div>
-        <div className="absolute top-20 left-20 w-96 h-96 bg-blue-400/20 rounded-full mix-blend-overlay filter blur-3xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-80 h-80 bg-purple-400/20 rounded-full mix-blend-overlay filter blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-indigo-400/20 rounded-full mix-blend-overlay filter blur-3xl animate-pulse delay-2000"></div>
-        <div className="absolute bottom-40 right-1/4 w-64 h-64 bg-blue-300/20 rounded-full mix-blend-overlay filter blur-3xl animate-pulse delay-3000"></div>
-      </div>
-
-      {/* Geometric patterns */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white rounded-full animate-ping"></div>
-        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-white rounded-full animate-ping delay-500"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-white rounded-full animate-ping delay-1000"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-2 h-2 bg-white rounded-full animate-ping delay-1500"></div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+        <div className="absolute top-40 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="mb-8 animate-fade-in">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            {heroContent.title}
-            <span className="block bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">
-              {heroContent.subtitle}
-            </span>
-          </h1>
-          <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            {heroContent.description}
-          </p>
+        {/* Brand Badge */}
+        <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-8">
+          <Award className="h-4 w-4 mr-2" />
+          <span className="text-sm font-medium">{heroContent.brand_name} - Empowering Bangladesh's Future</span>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-fade-in delay-300">
+        {/* Main Heading */}
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+          {heroContent.title}
+          <br />
+          <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            {heroContent.subtitle}
+          </span>
+        </h1>
+
+        {/* Description */}
+        <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto mb-12 leading-relaxed">
+          {heroContent.description}
+        </p>
+
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
           <Button 
-            onClick={handleVisitPlatform}
             size="lg" 
-            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300 shadow-2xl"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-none px-8 py-4 text-lg font-semibold rounded-xl shadow-2xl hover:scale-105 transition-all duration-300"
           >
+            <TrendingUp className="mr-2 h-5 w-5" />
             {heroContent.primary_button_text}
-            <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           <Button 
             variant="outline" 
             size="lg"
-            className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold rounded-full backdrop-blur-sm bg-white/10"
+            className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-4 text-lg font-semibold rounded-xl hover:scale-105 transition-all duration-300"
           >
             <Play className="mr-2 h-5 w-5" />
             {heroContent.secondary_button_text}
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto animate-fade-in delay-500">
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-            <Users className="h-12 w-12 text-blue-300 mx-auto mb-4" />
-            <div className="text-3xl font-bold text-white mb-2">{heroContent.stat1_number}</div>
-            <div className="text-blue-100">{heroContent.stat1_label}</div>
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+            <div className="flex items-center justify-center mb-4">
+              <Users className="h-8 w-8 text-blue-400" />
+            </div>
+            <div className="text-3xl md:text-4xl font-bold text-white mb-2">{heroContent.stat1_number}</div>
+            <div className="text-blue-200 font-medium">{heroContent.stat1_label}</div>
           </div>
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-            <BookOpen className="h-12 w-12 text-green-400 mx-auto mb-4" />
-            <div className="text-3xl font-bold text-white mb-2">{heroContent.stat2_number}</div>
-            <div className="text-blue-100">{heroContent.stat2_label}</div>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+            <div className="flex items-center justify-center mb-4">
+              <Award className="h-8 w-8 text-purple-400" />
+            </div>
+            <div className="text-3xl md:text-4xl font-bold text-white mb-2">{heroContent.stat2_number}</div>
+            <div className="text-blue-200 font-medium">{heroContent.stat2_label}</div>
           </div>
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-            <Award className="h-12 w-12 text-purple-400 mx-auto mb-4" />
-            <div className="text-3xl font-bold text-white mb-2">{heroContent.stat3_number}</div>
-            <div className="text-blue-100">{heroContent.stat3_label}</div>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+            <div className="flex items-center justify-center mb-4">
+              <TrendingUp className="h-8 w-8 text-pink-400" />
+            </div>
+            <div className="text-3xl md:text-4xl font-bold text-white mb-2">{heroContent.stat3_number}</div>
+            <div className="text-blue-200 font-medium">{heroContent.stat3_label}</div>
           </div>
         </div>
       </div>
