@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 
 const HeroEditor = () => {
   const [content, setContent] = useState({
+    id: '',
     title: '',
     subtitle: '',
     description: '',
