@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -37,7 +36,23 @@ const HeroEditor = () => {
         .single();
       
       if (error) throw error;
-      if (data) setContent(data);
+      if (data) {
+        setContent({
+          id: data.id,
+          brand_name: data.brand_name || '',
+          title: data.title,
+          subtitle: data.subtitle,
+          description: data.description,
+          primary_button_text: data.primary_button_text,
+          secondary_button_text: data.secondary_button_text,
+          stat1_number: data.stat1_number,
+          stat1_label: data.stat1_label,
+          stat2_number: data.stat2_number,
+          stat2_label: data.stat2_label,
+          stat3_number: data.stat3_number,
+          stat3_label: data.stat3_label
+        });
+      }
     } catch (error) {
       console.error('Error fetching hero content:', error);
       toast.error('Failed to load hero content');

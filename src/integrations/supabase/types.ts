@@ -224,6 +224,7 @@ export type Database = {
       }
       hero_content: {
         Row: {
+          brand_name: string
           created_at: string
           description: string
           id: string
@@ -240,6 +241,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          brand_name?: string
           created_at?: string
           description: string
           id?: string
@@ -256,6 +258,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          brand_name?: string
           created_at?: string
           description?: string
           id?: string
