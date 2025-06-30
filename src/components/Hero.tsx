@@ -1,13 +1,44 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play, Users, BookOpen, Award } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const Hero = () => {
+  const [heroContent, setHeroContent] = useState({
+    title: 'Transform Your',
+    subtitle: 'Learning Journey',
+    description: "Bangladesh's Gen Z Deserves Better — An Upcoming EdTech Revolution",
+    primary_button_text: 'Visit The Platform',
+    secondary_button_text: 'Watch Intro',
+    stat1_number: '50K+',
+    stat1_label: 'Active Learners',
+    stat2_number: '1000+',
+    stat2_label: 'Expert Courses',
+    stat3_number: '95%',
+    stat3_label: 'Success Rate'
+  });
+
+  useEffect(() => {
+    fetchHeroContent();
+  }, []);
+
+  const fetchHeroContent = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('hero_content')
+        .select('*')
+        .single();
+      
+      if (error) throw error;
+      if (data) setHeroContent(data);
+    } catch (error) {
+      console.error('Error fetching hero content:', error);
+    }
+  };
+
   const handleVisitPlatform = () => {
-    // This would navigate to the main platform
     console.log('Redirecting to platform...');
-    // For now, we'll just log. In a real app, this would be a router navigation
   };
 
   return (
@@ -35,13 +66,13 @@ const Hero = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="mb-8 animate-fade-in">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            Transform Your
+            {heroContent.title}
             <span className="block bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">
-              Learning Journey
+              {heroContent.subtitle}
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Bangladesh's Gen Z Deserves Better — An Upcoming EdTech Revolution
+            {heroContent.description}
           </p>
         </div>
 
@@ -51,7 +82,7 @@ const Hero = () => {
             size="lg" 
             className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300 shadow-2xl"
           >
-            Visit The Platform
+            {heroContent.primary_button_text}
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           <Button 
@@ -60,26 +91,25 @@ const Hero = () => {
             className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold rounded-full backdrop-blur-sm bg-white/10"
           >
             <Play className="mr-2 h-5 w-5" />
-            Watch Intro
+            {heroContent.secondary_button_text}
           </Button>
         </div>
 
-        {/* Enhanced Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto animate-fade-in delay-500">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
             <Users className="h-12 w-12 text-blue-300 mx-auto mb-4" />
-            <div className="text-3xl font-bold text-white mb-2">50K+</div>
-            <div className="text-blue-100">Active Learners</div>
+            <div className="text-3xl font-bold text-white mb-2">{heroContent.stat1_number}</div>
+            <div className="text-blue-100">{heroContent.stat1_label}</div>
           </div>
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
             <BookOpen className="h-12 w-12 text-green-400 mx-auto mb-4" />
-            <div className="text-3xl font-bold text-white mb-2">1000+</div>
-            <div className="text-blue-100">Expert Courses</div>
+            <div className="text-3xl font-bold text-white mb-2">{heroContent.stat2_number}</div>
+            <div className="text-blue-100">{heroContent.stat2_label}</div>
           </div>
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
             <Award className="h-12 w-12 text-purple-400 mx-auto mb-4" />
-            <div className="text-3xl font-bold text-white mb-2">95%</div>
-            <div className="text-blue-100">Success Rate</div>
+            <div className="text-3xl font-bold text-white mb-2">{heroContent.stat3_number}</div>
+            <div className="text-blue-100">{heroContent.stat3_label}</div>
           </div>
         </div>
       </div>

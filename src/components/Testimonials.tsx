@@ -1,68 +1,30 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
+import { supabase } from '@/integrations/supabase/client';
 
 const Testimonials = () => {
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      role: "Software Developer",
-      avatar: "SJ",
-      rating: 5,
-      comment: "This platform completely changed how I approach learning. The courses are incredibly well-structured and the instructors are top-notch."
-    },
-    {
-      name: "Michael Chen",
-      role: "Data Scientist",
-      avatar: "MC",
-      rating: 5,
-      comment: "I've tried many online learning platforms, but this one stands out. The interactive elements and practical projects make all the difference."
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Product Manager",
-      avatar: "ER",
-      rating: 5,
-      comment: "The quality of education here is exceptional. I was able to advance my career significantly thanks to the skills I learned."
-    },
-    {
-      name: "David Thompson",
-      role: "UX Designer",
-      avatar: "DT",
-      rating: 5,
-      comment: "Amazing learning experience! The platform is intuitive and the course content is always up-to-date with industry standards."
-    },
-    {
-      name: "Lisa Wang",
-      role: "Marketing Director",
-      avatar: "LW",
-      rating: 5,
-      comment: "The best investment I've made in my professional development. The courses are engaging and the community is incredibly supportive."
-    },
-    {
-      name: "James Wilson",
-      role: "Full Stack Developer",
-      avatar: "JW",
-      rating: 5,
-      comment: "Fantastic platform with excellent instructors. The hands-on approach really helps in understanding complex concepts."
-    },
-    {
-      name: "Anna Martinez",
-      role: "Business Analyst",
-      avatar: "AM",
-      rating: 5,
-      comment: "The beta experience has been incredible. Looking forward to seeing more features as the platform evolves."
-    },
-    {
-      name: "Robert Kim",
-      role: "AI Engineer",
-      avatar: "RK",
-      rating: 5,
-      comment: "Being part of the beta program gave me early access to cutting-edge courses. Highly recommend this platform!"
+  const [testimonials, setTestimonials] = useState([]);
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
+
+  const fetchTestimonials = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('testimonials')
+        .select('*')
+        .order('order_index');
+      
+      if (error) throw error;
+      setTestimonials(data || []);
+    } catch (error) {
+      console.error('Error fetching testimonials:', error);
     }
-  ];
+  };
 
   const scrollLeft = () => {
     const container = document.getElementById('testimonials-scroll');
@@ -120,7 +82,7 @@ const Testimonials = () => {
                   
                   <div className="flex items-center mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">
-                      {testimonial.avatar}
+                      {testimonial.avatar_text}
                     </div>
                     <div className="min-w-0 flex-1">
                       <h4 className="font-bold text-gray-900 truncate">{testimonial.name}</h4>

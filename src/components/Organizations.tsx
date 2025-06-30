@@ -1,38 +1,28 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ExternalLink, Star } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const Organizations = () => {
-  const organizations = [
-    {
-      name: "TechCorp Solutions",
-      logo: "TC",
-      website: "https://techcorp.com",
-      testimonial: "Amazing platform that transformed our employee training programs.",
-      rating: 5
-    },
-    {
-      name: "EduInnovate",
-      logo: "EI",
-      website: "https://eduinnovate.com",
-      testimonial: "The best investment we made for our educational initiatives.",
-      rating: 5
-    },
-    {
-      name: "Global Learning Hub",
-      logo: "GLH",
-      website: "https://globallearning.com",
-      testimonial: "Exceptional quality and outstanding support from the team.",
-      rating: 5
-    },
-    {
-      name: "FutureTech Academy",
-      logo: "FTA",
-      website: "https://futuretech.com",
-      testimonial: "Our students love the interactive learning experience.",
-      rating: 5
+  const [organizations, setOrganizations] = useState([]);
+
+  useEffect(() => {
+    fetchOrganizations();
+  }, []);
+
+  const fetchOrganizations = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('client_organizations')
+        .select('*')
+        .order('order_index');
+      
+      if (error) throw error;
+      setOrganizations(data || []);
+    } catch (error) {
+      console.error('Error fetching client organizations:', error);
     }
-  ];
+  };
 
   return (
     <section className="py-20 bg-white">
@@ -54,7 +44,7 @@ const Organizations = () => {
             >
               <div className="text-center mb-4">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-lg">
-                  {org.logo}
+                  {org.logo_text}
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{org.name}</h3>
                 <div className="flex justify-center mb-3">

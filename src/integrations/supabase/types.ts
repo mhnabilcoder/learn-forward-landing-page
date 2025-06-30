@@ -9,7 +9,333 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      about_tiles: {
+        Row: {
+          color_scheme: string
+          created_at: string
+          description: string
+          icon_name: string
+          id: string
+          order_index: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          color_scheme: string
+          created_at?: string
+          description: string
+          icon_name: string
+          id?: string
+          order_index: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          color_scheme?: string
+          created_at?: string
+          description?: string
+          icon_name?: string
+          id?: string
+          order_index?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      admin_users: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string
+          password_hash: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          password_hash: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          password_hash?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      advisors: {
+        Row: {
+          color_scheme: string
+          created_at: string
+          credentials: string
+          description: string
+          expertise: string
+          has_image: boolean | null
+          id: string
+          image_url: string | null
+          name: string
+          order_index: number
+          updated_at: string
+        }
+        Insert: {
+          color_scheme: string
+          created_at?: string
+          credentials: string
+          description: string
+          expertise: string
+          has_image?: boolean | null
+          id?: string
+          image_url?: string | null
+          name: string
+          order_index: number
+          updated_at?: string
+        }
+        Update: {
+          color_scheme?: string
+          created_at?: string
+          credentials?: string
+          description?: string
+          expertise?: string
+          has_image?: boolean | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          order_index?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      client_organizations: {
+        Row: {
+          created_at: string
+          id: string
+          logo_text: string
+          name: string
+          order_index: number
+          rating: number
+          testimonial: string
+          updated_at: string
+          website: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logo_text: string
+          name: string
+          order_index: number
+          rating?: number
+          testimonial: string
+          updated_at?: string
+          website: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logo_text?: string
+          name?: string
+          order_index?: number
+          rating?: number
+          testimonial?: string
+          updated_at?: string
+          website?: string
+        }
+        Relationships: []
+      }
+      features: {
+        Row: {
+          color_scheme: string
+          created_at: string
+          description: string
+          icon_name: string
+          id: string
+          order_index: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          color_scheme: string
+          created_at?: string
+          description: string
+          icon_name: string
+          id?: string
+          order_index: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          color_scheme?: string
+          created_at?: string
+          description?: string
+          icon_name?: string
+          id?: string
+          order_index?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      founders: {
+        Row: {
+          avatar_text: string
+          created_at: string
+          description: string
+          has_image: boolean | null
+          id: string
+          image_url: string | null
+          name: string
+          order_index: number
+          portfolio_url: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_text: string
+          created_at?: string
+          description: string
+          has_image?: boolean | null
+          id?: string
+          image_url?: string | null
+          name: string
+          order_index: number
+          portfolio_url?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_text?: string
+          created_at?: string
+          description?: string
+          has_image?: boolean | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          order_index?: number
+          portfolio_url?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      hero_content: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          primary_button_text: string
+          secondary_button_text: string
+          stat1_label: string
+          stat1_number: string
+          stat2_label: string
+          stat2_number: string
+          stat3_label: string
+          stat3_number: string
+          subtitle: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          primary_button_text: string
+          secondary_button_text: string
+          stat1_label: string
+          stat1_number: string
+          stat2_label: string
+          stat2_number: string
+          stat3_label: string
+          stat3_number: string
+          subtitle: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          primary_button_text?: string
+          secondary_button_text?: string
+          stat1_label?: string
+          stat1_number?: string
+          stat2_label?: string
+          stat2_number?: string
+          stat3_label?: string
+          stat3_number?: string
+          subtitle?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      supporting_organizations: {
+        Row: {
+          created_at: string
+          id: string
+          logo_text: string
+          name: string
+          order_index: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logo_text: string
+          name: string
+          order_index: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logo_text?: string
+          name?: string
+          order_index?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          avatar_text: string
+          comment: string
+          created_at: string
+          id: string
+          name: string
+          order_index: number
+          rating: number
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_text: string
+          comment: string
+          created_at?: string
+          id?: string
+          name: string
+          order_index: number
+          rating?: number
+          role: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_text?: string
+          comment?: string
+          created_at?: string
+          id?: string
+          name?: string
+          order_index?: number
+          rating?: number
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

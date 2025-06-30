@@ -1,20 +1,28 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { supabase } from '@/integrations/supabase/client';
 
 const SupportingOrganizations = () => {
-  const supporters = [
-    { name: "University Tech Club", logo: "UTC" },
-    { name: "Daily Education News", logo: "DEN" },
-    { name: "Innovation Hub BD", logo: "IHB" },
-    { name: "Student Press Association", logo: "SPA" },
-    { name: "Tech Times Bangladesh", logo: "TTB" },
-    { name: "Education Today", logo: "ET" },
-    { name: "Digital Learning Forum", logo: "DLF" },
-    { name: "Future Leaders Club", logo: "FLC" },
-    { name: "Academic Excellence Society", logo: "AES" },
-    { name: "Knowledge Network BD", logo: "KNB" }
-  ];
+  const [supporters, setSupporters] = useState([]);
+
+  useEffect(() => {
+    fetchSupporters();
+  }, []);
+
+  const fetchSupporters = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('supporting_organizations')
+        .select('*')
+        .order('order_index');
+      
+      if (error) throw error;
+      setSupporters(data || []);
+    } catch (error) {
+      console.error('Error fetching supporting organizations:', error);
+    }
+  };
 
   return (
     <section className="py-20 bg-gradient-to-br from-blue-50 to-blue-100">
@@ -37,7 +45,7 @@ const SupportingOrganizations = () => {
               >
                 <div className="text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-sm">
-                    {supporter.logo}
+                    {supporter.logo_text}
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900">{supporter.name}</h3>
                 </div>
