@@ -48,18 +48,31 @@ const ClientOrganizationsEditor = () => {
     try {
       // Update each organization
       for (const org of organizations) {
-        const { error } = await supabase
-          .from('client_organizations')
-          .upsert({
-            ...org,
-            section_title: sectionSettings.section_title,
-            section_tagline: sectionSettings.section_tagline
-          });
-        
-        if (error) throw error;
+        const orgData = {
+          ...org,
+          section_title: sectionSettings.section_title,
+          section_tagline: sectionSettings.section_tagline
+        };
+
+        if (org.id && typeof org.id === 'string' && org.id.length > 0) {
+          const { error } = await supabase
+            .from('client_organizations')
+            .update(orgData)
+            .eq('id', org.id);
+          
+          if (error) throw error;
+        } else {
+          const { error } = await supabase
+            .from('client_organizations')
+            .insert(orgData);
+          
+          if (error) throw error;
+        }
       }
       
       toast.success('Client organizations updated successfully!');
+      // Refresh data after successful save
+      await fetchOrganizations();
     } catch (error) {
       console.error('Error updating client organizations:', error);
       toast.error('Failed to update client organizations');
@@ -84,12 +97,16 @@ const ClientOrganizationsEditor = () => {
 
   const removeOrganization = async (id) => {
     try {
-      const { error } = await supabase
-        .from('client_organizations')
-        .delete()
-        .eq('id', id);
+      // Only try to delete from database if it has a real ID
+      if (typeof id === 'string' && id.length > 0) {
+        const { error } = await supabase
+          .from('client_organizations')
+          .delete()
+          .eq('id', id);
+        
+        if (error) throw error;
+      }
       
-      if (error) throw error;
       setOrganizations(organizations.filter(org => org.id !== id));
       toast.success('Organization removed');
     } catch (error) {
@@ -183,7 +200,7 @@ const ClientOrganizationsEditor = () => {
                     <div>
                       <label className="block text-sm font-medium mb-1">Name</label>
                       <Input
-                        value={org.name}
+                        value={org.name || ''}
                         onChange={(e) => updateOrganization(org.id, 'name', e.target.value)}
                         placeholder="Organization Name"
                       />
@@ -191,7 +208,7 @@ const ClientOrganizationsEditor = () => {
                     <div>
                       <label className="block text-sm font-medium mb-1">Logo Text (if no image)</label>
                       <Input
-                        value={org.logo_text}
+                        value={org.logo_text || ''}
                         onChange={(e) => updateOrganization(org.id, 'logo_text', e.target.value)}
                         placeholder="AB"
                       />
@@ -201,7 +218,7 @@ const ClientOrganizationsEditor = () => {
                   <div>
                     <label className="block text-sm font-medium mb-1">Website</label>
                     <Input
-                      value={org.website}
+                      value={org.website || ''}
                       onChange={(e) => updateOrganization(org.id, 'website', e.target.value)}
                       placeholder="https://organization.com"
                     />
@@ -210,9 +227,10 @@ const ClientOrganizationsEditor = () => {
                   <div>
                     <label className="block text-sm font-medium mb-1">Testimonial</label>
                     <Textarea
-                      value={org.testimonial}
+                      value={org.testimonial || ''}
                       onChange={(e) => updateOrganization(org.id, 'testimonial', e.target.value)}
                       placeholder="Great platform for learning..."
+                      rows={3}
                     />
                   </div>
 
@@ -222,8 +240,8 @@ const ClientOrganizationsEditor = () => {
                       type="number"
                       min="1"
                       max="5"
-                      value={org.rating}
-                      onChange={(e) => updateOrganization(org.id, 'rating', parseInt(e.target.value))}
+                      value={org.rating || 5}
+                      onChange={(e) => updateOrganization(org.id, 'rating', parseInt(e.target.value) || 5)}
                     />
                   </div>
 
@@ -247,6 +265,16 @@ const ClientOrganizationsEditor = () => {
                           Copy URL
                         </Button>
                       )}
+                    </div>
+                    <div>
+                      <Input
+                        value={org.logo_url || ''}
+                        onChange={(e) => {
+                          updateOrganization(org.id, 'logo_url', e.target.value);
+                          updateOrganization(org.id, 'has_logo', !!e.target.value);
+                        }}
+                        placeholder="Or paste image URL here"
+                      />
                     </div>
                     {org.logo_url && (
                       <div className="mt-2">

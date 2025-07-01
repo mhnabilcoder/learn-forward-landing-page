@@ -78,7 +78,8 @@ const FoundersEditor = () => {
       }
       
       toast.success('Founders updated successfully!');
-      fetchFounders();
+      // Refresh data after successful save
+      await fetchFounders();
     } catch (error) {
       console.error('Error updating founders:', error);
       toast.error('Failed to update founders');
@@ -110,6 +111,7 @@ const FoundersEditor = () => {
           .eq('id', founder.id);
         
         if (error) throw error;
+        toast.success('Founder removed successfully');
       } catch (error) {
         console.error('Error deleting founder:', error);
         toast.error('Failed to delete founder');
@@ -156,7 +158,7 @@ const FoundersEditor = () => {
               <div>
                 <label className="block text-sm font-medium mb-1">Name</label>
                 <Input
-                  value={founder.name}
+                  value={founder.name || ''}
                   onChange={(e) => updateFounder(index, 'name', e.target.value)}
                   placeholder="Mahedi Hasan Nabil"
                 />
@@ -164,7 +166,7 @@ const FoundersEditor = () => {
               <div>
                 <label className="block text-sm font-medium mb-1">Title</label>
                 <Input
-                  value={founder.title}
+                  value={founder.title || ''}
                   onChange={(e) => updateFounder(index, 'title', e.target.value)}
                   placeholder="Co-Founder & COO"
                 />
@@ -175,7 +177,7 @@ const FoundersEditor = () => {
               <div>
                 <label className="block text-sm font-medium mb-1">Avatar Text</label>
                 <Input
-                  value={founder.avatar_text}
+                  value={founder.avatar_text || ''}
                   onChange={(e) => updateFounder(index, 'avatar_text', e.target.value)}
                   placeholder="MN"
                 />
@@ -208,8 +210,9 @@ const FoundersEditor = () => {
                   <Input
                     value={founder.image_url || ''}
                     onChange={(e) => {
-                      updateFounder(index, 'image_url', e.target.value);
-                      updateFounder(index, 'has_image', !!e.target.value);
+                      const url = e.target.value;
+                      updateFounder(index, 'image_url', url);
+                      updateFounder(index, 'has_image', !!url);
                     }}
                     placeholder="https://example.com/image.jpg"
                   />
@@ -241,7 +244,7 @@ const FoundersEditor = () => {
             <div className="mt-4">
               <label className="block text-sm font-medium mb-1">Description</label>
               <Textarea
-                value={founder.description}
+                value={founder.description || ''}
                 onChange={(e) => updateFounder(index, 'description', e.target.value)}
                 placeholder="As a strategist at heart, I align internal operations..."
                 rows={4}

@@ -50,6 +50,8 @@ const VisionMissionEditor = () => {
       
       if (error) throw error;
       toast.success('Vision/Mission content updated successfully!');
+      // Refresh data after successful save
+      await fetchContent();
     } catch (error) {
       console.error('Error updating vision/mission content:', error);
       toast.error('Failed to update vision/mission content');
@@ -79,6 +81,7 @@ const VisionMissionEditor = () => {
               value={content.vision_content}
               onChange={(e) => setContent({...content, vision_content: e.target.value})}
               placeholder="To revolutionize education in Bangladesh"
+              rows={4}
             />
           </div>
         </div>
@@ -99,6 +102,7 @@ const VisionMissionEditor = () => {
               value={content.mission_content}
               onChange={(e) => setContent({...content, mission_content: e.target.value})}
               placeholder="Empowering students with cutting-edge learning tools"
+              rows={4}
             />
           </div>
         </div>
@@ -119,6 +123,7 @@ const VisionMissionEditor = () => {
               value={content.what_sets_us_apart_content}
               onChange={(e) => setContent({...content, what_sets_us_apart_content: e.target.value})}
               placeholder="Innovation, Quality, and Student-Centric Approach"
+              rows={4}
             />
           </div>
         </div>

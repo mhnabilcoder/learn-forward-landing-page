@@ -85,7 +85,7 @@ const OrganizationsEditor = () => {
         }
       }
       toast.success('Supporting organizations updated successfully!');
-      fetchOrganizations();
+      await fetchOrganizations();
     } catch (error) {
       console.error('Error updating supporting organizations:', error);
       toast.error('Failed to update supporting organizations');
@@ -111,7 +111,7 @@ const OrganizationsEditor = () => {
         }
       }
       toast.success('Client organizations updated successfully!');
-      fetchOrganizations();
+      await fetchOrganizations();
     } catch (error) {
       console.error('Error updating client organizations:', error);
       toast.error('Failed to update client organizations');
@@ -140,6 +140,7 @@ const OrganizationsEditor = () => {
           .delete()
           .eq('id', org.id);
         if (error) throw error;
+        toast.success('Organization removed');
       } catch (error) {
         console.error('Error deleting supporting organization:', error);
         toast.error('Failed to delete organization');
@@ -163,6 +164,7 @@ const OrganizationsEditor = () => {
       logo_url: '',
       has_logo: false,
       testimonial: '',
+      website: '',
       rating: 5,
       order_index: clientOrgs.length + 1
     };
@@ -178,6 +180,7 @@ const OrganizationsEditor = () => {
           .delete()
           .eq('id', org.id);
         if (error) throw error;
+        toast.success('Organization removed');
       } catch (error) {
         console.error('Error deleting client organization:', error);
         toast.error('Failed to delete organization');
@@ -231,7 +234,7 @@ const OrganizationsEditor = () => {
                   <div>
                     <label className="block text-sm font-medium mb-1">Name</label>
                     <Input
-                      value={org.name}
+                      value={org.name || ''}
                       onChange={(e) => updateSupportingOrg(index, 'name', e.target.value)}
                       placeholder="University Tech Club"
                     />
@@ -239,7 +242,7 @@ const OrganizationsEditor = () => {
                   <div>
                     <label className="block text-sm font-medium mb-1">Logo Text (Fallback)</label>
                     <Input
-                      value={org.logo_text}
+                      value={org.logo_text || ''}
                       onChange={(e) => updateSupportingOrg(index, 'logo_text', e.target.value)}
                       placeholder="UTC"
                     />
@@ -264,8 +267,9 @@ const OrganizationsEditor = () => {
                       <Input
                         value={org.logo_url || ''}
                         onChange={(e) => {
-                          updateSupportingOrg(index, 'logo_url', e.target.value);
-                          updateSupportingOrg(index, 'has_logo', !!e.target.value);
+                          const url = e.target.value;
+                          updateSupportingOrg(index, 'logo_url', url);
+                          updateSupportingOrg(index, 'has_logo', !!url);
                         }}
                         placeholder="https://example.com/logo.png"
                       />
@@ -327,7 +331,7 @@ const OrganizationsEditor = () => {
                   <div>
                     <label className="block text-sm font-medium mb-1">Name</label>
                     <Input
-                      value={org.name}
+                      value={org.name || ''}
                       onChange={(e) => updateClientOrg(index, 'name', e.target.value)}
                       placeholder="TechCorp Solutions"
                     />
@@ -335,11 +339,20 @@ const OrganizationsEditor = () => {
                   <div>
                     <label className="block text-sm font-medium mb-1">Logo Text (Fallback)</label>
                     <Input
-                      value={org.logo_text}
+                      value={org.logo_text || ''}
                       onChange={(e) => updateClientOrg(index, 'logo_text', e.target.value)}
                       placeholder="TC"
                     />
                   </div>
+                </div>
+
+                <div className="mt-4">
+                  <label className="block text-sm font-medium mb-1">Website</label>
+                  <Input
+                    value={org.website || ''}
+                    onChange={(e) => updateClientOrg(index, 'website', e.target.value)}
+                    placeholder="https://organization.com"
+                  />
                 </div>
 
                 <div className="mt-4">
@@ -360,8 +373,9 @@ const OrganizationsEditor = () => {
                       <Input
                         value={org.logo_url || ''}
                         onChange={(e) => {
-                          updateClientOrg(index, 'logo_url', e.target.value);
-                          updateClientOrg(index, 'has_logo', !!e.target.value);
+                          const url = e.target.value;
+                          updateClientOrg(index, 'logo_url', url);
+                          updateClientOrg(index, 'has_logo', !!url);
                         }}
                         placeholder="https://example.com/logo.png"
                       />
@@ -393,9 +407,10 @@ const OrganizationsEditor = () => {
                 <div className="mt-4">
                   <label className="block text-sm font-medium mb-1">Testimonial</label>
                   <Textarea
-                    value={org.testimonial}
+                    value={org.testimonial || ''}
                     onChange={(e) => updateClientOrg(index, 'testimonial', e.target.value)}
                     placeholder="Amazing platform that transformed our employee training programs."
+                    rows={3}
                   />
                 </div>
 
@@ -405,8 +420,8 @@ const OrganizationsEditor = () => {
                     type="number"
                     min="1"
                     max="5"
-                    value={org.rating}
-                    onChange={(e) => updateClientOrg(index, 'rating', parseInt(e.target.value))}
+                    value={org.rating || 5}
+                    onChange={(e) => updateClientOrg(index, 'rating', parseInt(e.target.value) || 5)}
                   />
                 </div>
               </Card>
