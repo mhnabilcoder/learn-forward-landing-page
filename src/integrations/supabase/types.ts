@@ -17,6 +17,8 @@ export type Database = {
           icon_name: string
           id: string
           order_index: number
+          section_tagline: string | null
+          section_title: string | null
           title: string
           updated_at: string
         }
@@ -27,6 +29,8 @@ export type Database = {
           icon_name: string
           id?: string
           order_index: number
+          section_tagline?: string | null
+          section_title?: string | null
           title: string
           updated_at?: string
         }
@@ -37,6 +41,8 @@ export type Database = {
           icon_name?: string
           id?: string
           order_index?: number
+          section_tagline?: string | null
+          section_title?: string | null
           title?: string
           updated_at?: string
         }
@@ -81,6 +87,8 @@ export type Database = {
           image_url: string | null
           name: string
           order_index: number
+          section_tagline: string | null
+          section_title: string | null
           updated_at: string
         }
         Insert: {
@@ -94,6 +102,8 @@ export type Database = {
           image_url?: string | null
           name: string
           order_index: number
+          section_tagline?: string | null
+          section_title?: string | null
           updated_at?: string
         }
         Update: {
@@ -107,6 +117,8 @@ export type Database = {
           image_url?: string | null
           name?: string
           order_index?: number
+          section_tagline?: string | null
+          section_title?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -119,6 +131,8 @@ export type Database = {
           name: string
           order_index: number
           rating: number
+          section_tagline: string | null
+          section_title: string | null
           testimonial: string
           updated_at: string
           website: string
@@ -130,6 +144,8 @@ export type Database = {
           name: string
           order_index: number
           rating?: number
+          section_tagline?: string | null
+          section_title?: string | null
           testimonial: string
           updated_at?: string
           website: string
@@ -141,6 +157,8 @@ export type Database = {
           name?: string
           order_index?: number
           rating?: number
+          section_tagline?: string | null
+          section_title?: string | null
           testimonial?: string
           updated_at?: string
           website?: string
@@ -155,6 +173,8 @@ export type Database = {
           icon_name: string
           id: string
           order_index: number
+          section_tagline: string | null
+          section_title: string | null
           title: string
           updated_at: string
         }
@@ -165,6 +185,8 @@ export type Database = {
           icon_name: string
           id?: string
           order_index: number
+          section_tagline?: string | null
+          section_title?: string | null
           title: string
           updated_at?: string
         }
@@ -175,8 +197,55 @@ export type Database = {
           icon_name?: string
           id?: string
           order_index?: number
+          section_tagline?: string | null
+          section_title?: string | null
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      footer_settings: {
+        Row: {
+          access_platform_url: string
+          company_description: string
+          company_name: string
+          created_at: string
+          email: string
+          facebook_url: string | null
+          id: string
+          instagram_url: string | null
+          linkedin_url: string | null
+          platform_links: Json | null
+          updated_at: string
+          youtube_url: string | null
+        }
+        Insert: {
+          access_platform_url?: string
+          company_description?: string
+          company_name?: string
+          created_at?: string
+          email?: string
+          facebook_url?: string | null
+          id?: string
+          instagram_url?: string | null
+          linkedin_url?: string | null
+          platform_links?: Json | null
+          updated_at?: string
+          youtube_url?: string | null
+        }
+        Update: {
+          access_platform_url?: string
+          company_description?: string
+          company_name?: string
+          created_at?: string
+          email?: string
+          facebook_url?: string | null
+          id?: string
+          instagram_url?: string | null
+          linkedin_url?: string | null
+          platform_links?: Json | null
+          updated_at?: string
+          youtube_url?: string | null
         }
         Relationships: []
       }
@@ -191,6 +260,8 @@ export type Database = {
           name: string
           order_index: number
           portfolio_url: string | null
+          section_tagline: string | null
+          section_title: string | null
           title: string
           updated_at: string
         }
@@ -204,6 +275,8 @@ export type Database = {
           name: string
           order_index: number
           portfolio_url?: string | null
+          section_tagline?: string | null
+          section_title?: string | null
           title: string
           updated_at?: string
         }
@@ -217,7 +290,45 @@ export type Database = {
           name?: string
           order_index?: number
           portfolio_url?: string | null
+          section_tagline?: string | null
+          section_title?: string | null
           title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      general_settings: {
+        Row: {
+          access_platform_url: string
+          created_at: string
+          id: string
+          meta_description: string
+          motto: string
+          scroll_text: string
+          site_title: string
+          tagline: string
+          updated_at: string
+        }
+        Insert: {
+          access_platform_url?: string
+          created_at?: string
+          id?: string
+          meta_description?: string
+          motto?: string
+          scroll_text?: string
+          site_title?: string
+          tagline?: string
+          updated_at?: string
+        }
+        Update: {
+          access_platform_url?: string
+          created_at?: string
+          id?: string
+          meta_description?: string
+          motto?: string
+          scroll_text?: string
+          site_title?: string
+          tagline?: string
           updated_at?: string
         }
         Relationships: []
@@ -229,7 +340,9 @@ export type Database = {
           description: string
           id: string
           primary_button_text: string
+          primary_button_url: string | null
           secondary_button_text: string
+          secondary_button_url: string | null
           stat1_label: string
           stat1_number: string
           stat2_label: string
@@ -246,7 +359,9 @@ export type Database = {
           description: string
           id?: string
           primary_button_text: string
+          primary_button_url?: string | null
           secondary_button_text: string
+          secondary_button_url?: string | null
           stat1_label: string
           stat1_number: string
           stat2_label: string
@@ -263,7 +378,9 @@ export type Database = {
           description?: string
           id?: string
           primary_button_text?: string
+          primary_button_url?: string | null
           secondary_button_text?: string
+          secondary_button_url?: string | null
           stat1_label?: string
           stat1_number?: string
           stat2_label?: string
@@ -283,6 +400,8 @@ export type Database = {
           logo_text: string
           name: string
           order_index: number
+          section_tagline: string | null
+          section_title: string | null
           updated_at: string
         }
         Insert: {
@@ -291,6 +410,8 @@ export type Database = {
           logo_text: string
           name: string
           order_index: number
+          section_tagline?: string | null
+          section_title?: string | null
           updated_at?: string
         }
         Update: {
@@ -299,6 +420,8 @@ export type Database = {
           logo_text?: string
           name?: string
           order_index?: number
+          section_tagline?: string | null
+          section_title?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -313,6 +436,8 @@ export type Database = {
           order_index: number
           rating: number
           role: string
+          section_tagline: string | null
+          section_title: string | null
           updated_at: string
         }
         Insert: {
@@ -324,6 +449,8 @@ export type Database = {
           order_index: number
           rating?: number
           role: string
+          section_tagline?: string | null
+          section_title?: string | null
           updated_at?: string
         }
         Update: {
@@ -335,7 +462,45 @@ export type Database = {
           order_index?: number
           rating?: number
           role?: string
+          section_tagline?: string | null
+          section_title?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      vision_mission: {
+        Row: {
+          created_at: string
+          id: string
+          mission_content: string
+          mission_title: string
+          updated_at: string
+          vision_content: string
+          vision_title: string
+          what_sets_us_apart_content: string
+          what_sets_us_apart_title: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          mission_content?: string
+          mission_title?: string
+          updated_at?: string
+          vision_content?: string
+          vision_title?: string
+          what_sets_us_apart_content?: string
+          what_sets_us_apart_title?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          mission_content?: string
+          mission_title?: string
+          updated_at?: string
+          vision_content?: string
+          vision_title?: string
+          what_sets_us_apart_content?: string
+          what_sets_us_apart_title?: string
         }
         Relationships: []
       }

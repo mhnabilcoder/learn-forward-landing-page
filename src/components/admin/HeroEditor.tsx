@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,7 +15,9 @@ const HeroEditor = () => {
     subtitle: '',
     description: '',
     primary_button_text: '',
+    primary_button_url: '',
     secondary_button_text: '',
+    secondary_button_url: '',
     stat1_number: '',
     stat1_label: '',
     stat2_number: '',
@@ -44,7 +47,9 @@ const HeroEditor = () => {
           subtitle: data.subtitle,
           description: data.description,
           primary_button_text: data.primary_button_text,
+          primary_button_url: data.primary_button_url || '',
           secondary_button_text: data.secondary_button_text,
+          secondary_button_url: data.secondary_button_url || '',
           stat1_number: data.stat1_number,
           stat1_label: data.stat1_label,
           stat2_number: data.stat2_number,
@@ -129,11 +134,30 @@ const HeroEditor = () => {
             />
           </div>
           <div>
+            <label className="block text-sm font-medium mb-1">Primary Button URL</label>
+            <Input
+              value={content.primary_button_url}
+              onChange={(e) => setContent({...content, primary_button_url: e.target.value})}
+              placeholder="https://platform.edcluster.com"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
             <label className="block text-sm font-medium mb-1">Secondary Button Text</label>
             <Input
               value={content.secondary_button_text}
               onChange={(e) => setContent({...content, secondary_button_text: e.target.value})}
               placeholder="Watch Intro"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Secondary Button URL</label>
+            <Input
+              value={content.secondary_button_url}
+              onChange={(e) => setContent({...content, secondary_button_url: e.target.value})}
+              placeholder="https://youtube.com/watch?v=..."
             />
           </div>
         </div>

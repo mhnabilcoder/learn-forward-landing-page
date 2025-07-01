@@ -16,9 +16,8 @@ const AdminLogin = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    // For now, we'll use a simple hardcoded admin login
-    // In production, you'd validate against the admin_users table
-    if (email === 'admin@edcluster.com' && password === 'admin123') {
+    // Updated admin credentials
+    if (email === 'edcluster54@gmail.com' && password === 'edcluster54') {
       localStorage.setItem('isAdminLoggedIn', 'true');
       toast.success('Login successful!');
       navigate('/admin');
@@ -34,7 +33,7 @@ const AdminLogin = () => {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold text-gray-900">
-            Admin Login
+            EdCluster Admin Login
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -47,7 +46,7 @@ const AdminLogin = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@edcluster.com"
+                placeholder="edcluster54@gmail.com"
                 required
               />
             </div>
@@ -71,11 +70,6 @@ const AdminLogin = () => {
               {isLoading ? 'Logging in...' : 'Login'}
             </Button>
           </form>
-          <div className="mt-4 text-sm text-gray-600 text-center">
-            <p>Demo credentials:</p>
-            <p>Email: admin@edcluster.com</p>
-            <p>Password: admin123</p>
-          </div>
         </CardContent>
       </Card>
     </div>
