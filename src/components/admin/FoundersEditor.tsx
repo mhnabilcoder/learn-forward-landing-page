@@ -44,7 +44,7 @@ const FoundersEditor = () => {
       title: 'Co-Founder & CEO',
       description: 'Leading the vision and strategy for transforming education through technology.',
       avatar_text: 'F2',
-      portfolio_url: '',
+      portfolio_url: 'https://www.linkedin.com/in/adnan-shihab-5a1749267/',
       has_image: true,
       image_url: '/lovable-uploads/ef90aa0d-99e8-4068-8331-bcad247cb460.png',
       order_index: 2
@@ -55,7 +55,7 @@ const FoundersEditor = () => {
       title: 'Co-Founder & CTO',
       description: 'Architecting the technical infrastructure that powers our educational platform.',
       avatar_text: 'F3',
-      portfolio_url: 'https://www.linkedin.com/in/adnan-shihab-5a1749267/',
+      portfolio_url: '',
       has_image: true,
       image_url: '/lovable-uploads/c144ce34-13da-4028-a404-db140f3cc600.png',
       order_index: 3
