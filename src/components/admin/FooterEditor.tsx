@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -43,7 +42,7 @@ const FooterEditor = () => {
       if (data) {
         setSettings({
           ...data,
-          platform_links: Array.isArray(data.platform_links) ? data.platform_links : []
+          platform_links: Array.isArray(data.platform_links) ? data.platform_links as PlatformLink[] : []
         });
       }
     } catch (error) {

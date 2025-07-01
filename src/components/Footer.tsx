@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Facebook, Instagram, Linkedin, Youtube, ExternalLink } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
@@ -36,7 +35,7 @@ const Footer = () => {
       if (data) {
         setFooterSettings({
           ...data,
-          platform_links: Array.isArray(data.platform_links) ? data.platform_links : []
+          platform_links: Array.isArray(data.platform_links) ? data.platform_links as PlatformLink[] : []
         });
       }
     } catch (error) {
