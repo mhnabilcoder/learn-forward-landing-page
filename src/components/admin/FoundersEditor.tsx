@@ -33,7 +33,7 @@ const FoundersEditor = () => {
       title: 'Co-Founder & COO',
       description: 'As a strategist at heart, I align internal operations with our vision to create seamless experiences for educators and learners.',
       avatar_text: 'MN',
-      portfolio_url: 'https://mahedi-portfolio.com',
+      portfolio_url: 'https://mhnabil.edcluster.com/',
       has_image: true,
       image_url: '/lovable-uploads/2f879a8f-cf5b-4a2b-9c36-e4dee45dfcb0.png',
       order_index: 1
@@ -55,7 +55,7 @@ const FoundersEditor = () => {
       title: 'Co-Founder & CTO',
       description: 'Architecting the technical infrastructure that powers our educational platform.',
       avatar_text: 'F3',
-      portfolio_url: '',
+      portfolio_url: 'https://www.linkedin.com/in/adnan-shihab-5a1749267/',
       has_image: true,
       image_url: '/lovable-uploads/c144ce34-13da-4028-a404-db140f3cc600.png',
       order_index: 3
