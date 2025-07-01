@@ -9,8 +9,24 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Plus, Trash2, Upload, Link } from 'lucide-react';
 
+interface Founder {
+  id: string;
+  name: string;
+  title: string;
+  description: string;
+  avatar_text: string;
+  portfolio_url: string;
+  has_image: boolean;
+  image_url: string;
+  order_index: number;
+  section_title?: string;
+  section_tagline?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
 const FoundersEditor = () => {
-  const [founders, setFounders] = useState([
+  const [founders, setFounders] = useState<Founder[]>([
     {
       id: crypto.randomUUID(),
       name: 'Mahedi Hasan Nabil',
@@ -61,7 +77,23 @@ const FoundersEditor = () => {
       if (error) throw error;
       
       if (data && data.length > 0) {
-        setFounders(data);
+        // Map database data to match our interface
+        const mappedData = data.map(founder => ({
+          id: founder.id,
+          name: founder.name,
+          title: founder.title,
+          description: founder.description,
+          avatar_text: founder.avatar_text,
+          portfolio_url: founder.portfolio_url || '',
+          has_image: founder.has_image || false,
+          image_url: founder.image_url || '',
+          order_index: founder.order_index,
+          section_title: founder.section_title,
+          section_tagline: founder.section_tagline,
+          created_at: founder.created_at,
+          updated_at: founder.updated_at
+        }));
+        setFounders(mappedData);
       }
     } catch (error) {
       console.error('Error fetching founders:', error);
@@ -69,7 +101,7 @@ const FoundersEditor = () => {
     }
   };
 
-  const handleImageUpload = async (index, file) => {
+  const handleImageUpload = async (index: number, file: File) => {
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `founder-${Date.now()}.${fileExt}`;
@@ -105,10 +137,22 @@ const FoundersEditor = () => {
       
       if (deleteError) throw deleteError;
 
-      // Insert new data
+      // Insert new data - map our interface back to database schema
+      const foundersData = founders.map(founder => ({
+        id: founder.id,
+        name: founder.name,
+        title: founder.title,
+        description: founder.description,
+        avatar_text: founder.avatar_text,
+        portfolio_url: founder.portfolio_url,
+        has_image: founder.has_image,
+        image_url: founder.image_url,
+        order_index: founder.order_index
+      }));
+
       const { error } = await supabase
         .from('founders')
-        .insert(founders);
+        .insert(foundersData);
       
       if (error) throw error;
       
@@ -122,7 +166,7 @@ const FoundersEditor = () => {
   };
 
   const addFounder = () => {
-    const newFounder = {
+    const newFounder: Founder = {
       id: crypto.randomUUID(),
       name: '',
       title: '',
@@ -136,13 +180,13 @@ const FoundersEditor = () => {
     setFounders([...founders, newFounder]);
   };
 
-  const removeFounder = async (index) => {
+  const removeFounder = async (index: number) => {
     const newFounders = founders.filter((_, i) => i !== index);
     setFounders(newFounders);
     toast.success('Founder removed');
   };
 
-  const updateFounder = (index, field, value) => {
+  const updateFounder = (index: number, field: keyof Founder, value: any) => {
     const newFounders = [...founders];
     newFounders[index] = { ...newFounders[index], [field]: value };
     setFounders(newFounders);

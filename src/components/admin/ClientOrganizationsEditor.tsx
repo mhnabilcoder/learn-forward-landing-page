@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,8 +8,24 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Plus, Trash2, Upload, Copy } from 'lucide-react';
 
+interface ClientOrganization {
+  id: string;
+  name: string;
+  logo_text: string;
+  testimonial: string;
+  website: string;
+  rating: number;
+  order_index: number;
+  has_logo: boolean;
+  logo_url: string | null;
+  section_title?: string;
+  section_tagline?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
 const ClientOrganizationsEditor = () => {
-  const [organizations, setOrganizations] = useState([
+  const [organizations, setOrganizations] = useState<ClientOrganization[]>([
     {
       id: crypto.randomUUID(),
       name: 'ProcademiX',
@@ -87,7 +102,23 @@ const ClientOrganizationsEditor = () => {
       if (error) throw error;
       
       if (data && data.length > 0) {
-        setOrganizations(data);
+        // Map database data to match our interface
+        const mappedData = data.map(org => ({
+          id: org.id,
+          name: org.name,
+          logo_text: org.logo_text,
+          testimonial: org.testimonial,
+          website: org.website,
+          rating: org.rating,
+          order_index: org.order_index,
+          has_logo: false, // Default value since not in database
+          logo_url: null, // Default value since not in database
+          section_title: org.section_title,
+          section_tagline: org.section_tagline,
+          created_at: org.created_at,
+          updated_at: org.updated_at
+        }));
+        setOrganizations(mappedData);
         setSectionSettings({
           section_title: data[0].section_title || 'Our Onboarded Clients',
           section_tagline: data[0].section_tagline || 'Trusted By'
@@ -110,9 +141,15 @@ const ClientOrganizationsEditor = () => {
       
       if (deleteError) throw deleteError;
 
-      // Insert new data
+      // Insert new data - map our interface back to database schema
       const orgData = organizations.map(org => ({
-        ...org,
+        id: org.id,
+        name: org.name,
+        logo_text: org.logo_text,
+        testimonial: org.testimonial,
+        website: org.website,
+        rating: org.rating,
+        order_index: org.order_index,
         section_title: sectionSettings.section_title,
         section_tagline: sectionSettings.section_tagline
       }));
@@ -133,7 +170,7 @@ const ClientOrganizationsEditor = () => {
   };
 
   const addOrganization = () => {
-    const newOrg = {
+    const newOrg: ClientOrganization = {
       id: crypto.randomUUID(),
       name: '',
       logo_text: '',
@@ -147,18 +184,18 @@ const ClientOrganizationsEditor = () => {
     setOrganizations([...organizations, newOrg]);
   };
 
-  const removeOrganization = async (id) => {
+  const removeOrganization = async (id: string) => {
     setOrganizations(organizations.filter(org => org.id !== id));
     toast.success('Organization removed');
   };
 
-  const updateOrganization = (id, field, value) => {
+  const updateOrganization = (id: string, field: keyof ClientOrganization, value: any) => {
     setOrganizations(organizations.map(org => 
       org.id === id ? { ...org, [field]: value } : org
     ));
   };
 
-  const handleImageUpload = async (orgId, file) => {
+  const handleImageUpload = async (orgId: string, file: File) => {
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `${orgId}-${Date.now()}.${fileExt}`;
@@ -183,7 +220,7 @@ const ClientOrganizationsEditor = () => {
     }
   };
 
-  const copyImageUrl = (url) => {
+  const copyImageUrl = (url: string) => {
     navigator.clipboard.writeText(url);
     toast.success('Image URL copied to clipboard!');
   };
@@ -288,16 +325,16 @@ const ClientOrganizationsEditor = () => {
                       <input
                         type="file"
                         accept="image/*"
-                        onChange={(e) => e.target.files[0] && handleImageUpload(org.id, e.target.files[0])}
+                        onChange={(e) => e.target.files?.[0] && handleImageUpload(org.id, e.target.files[0])}
                         className="hidden"
                         id={`file-${org.id}`}
                       />
-                      <Button onClick={() => document.getElementById(`file-${org.id}`).click()} variant="outline" size="sm">
+                      <Button onClick={() => document.getElementById(`file-${org.id}`)?.click()} variant="outline" size="sm">
                         <Upload className="h-4 w-4 mr-2" />
                         Upload Image
                       </Button>
                       {org.logo_url && (
-                        <Button onClick={() => copyImageUrl(org.logo_url)} variant="outline" size="sm">
+                        <Button onClick={() => copyImageUrl(org.logo_url!)} variant="outline" size="sm">
                           <Copy className="h-4 w-4 mr-2" />
                           Copy URL
                         </Button>
