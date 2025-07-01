@@ -35,7 +35,7 @@ const Footer = () => {
       if (data) {
         setFooterSettings({
           ...data,
-          platform_links: Array.isArray(data.platform_links) ? data.platform_links as PlatformLink[] : []
+          platform_links: Array.isArray(data.platform_links) ? data.platform_links as unknown as PlatformLink[] : []
         });
       }
     } catch (error) {
