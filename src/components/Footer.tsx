@@ -3,6 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Facebook, Instagram, Linkedin, Youtube, ExternalLink } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
+interface PlatformLink {
+  name: string;
+  url: string;
+}
+
 const Footer = () => {
   const [footerSettings, setFooterSettings] = useState({
     company_name: 'EdCluster',
@@ -12,7 +17,7 @@ const Footer = () => {
     instagram_url: '',
     linkedin_url: '',
     youtube_url: '',
-    platform_links: [],
+    platform_links: [] as PlatformLink[],
     access_platform_url: 'https://platform.edcluster.com'
   });
 
@@ -31,7 +36,7 @@ const Footer = () => {
       if (data) {
         setFooterSettings({
           ...data,
-          platform_links: data.platform_links || []
+          platform_links: Array.isArray(data.platform_links) ? data.platform_links : []
         });
       }
     } catch (error) {

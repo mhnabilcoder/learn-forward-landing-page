@@ -8,6 +8,11 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Plus, Trash2 } from 'lucide-react';
 
+interface PlatformLink {
+  name: string;
+  url: string;
+}
+
 const FooterEditor = () => {
   const [settings, setSettings] = useState({
     id: '',
@@ -18,7 +23,7 @@ const FooterEditor = () => {
     instagram_url: '',
     linkedin_url: '',
     youtube_url: '',
-    platform_links: [],
+    platform_links: [] as PlatformLink[],
     access_platform_url: ''
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +43,7 @@ const FooterEditor = () => {
       if (data) {
         setSettings({
           ...data,
-          platform_links: data.platform_links || []
+          platform_links: Array.isArray(data.platform_links) ? data.platform_links : []
         });
       }
     } catch (error) {
@@ -74,12 +79,12 @@ const FooterEditor = () => {
     });
   };
 
-  const removePlatformLink = (index) => {
+  const removePlatformLink = (index: number) => {
     const newLinks = settings.platform_links.filter((_, i) => i !== index);
     setSettings({ ...settings, platform_links: newLinks });
   };
 
-  const updatePlatformLink = (index, field, value) => {
+  const updatePlatformLink = (index: number, field: keyof PlatformLink, value: string) => {
     const newLinks = [...settings.platform_links];
     newLinks[index][field] = value;
     setSettings({ ...settings, platform_links: newLinks });
