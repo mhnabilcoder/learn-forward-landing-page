@@ -11,7 +11,7 @@ const Hero = () => {
     subtitle: 'Learning Journey',
     description: "Bangladesh's Gen Z Deserves Better. We're Building Tomorrow's Learning Platform Today.",
     primary_button_text: 'Visit The Platform',
-    primary_button_url: 'https://platform.edcluster.com',
+    primary_button_url: 'https://edcluster.com/',
     secondary_button_text: 'Watch Intro',
     secondary_button_url: '#',
     stat1_number: '50K+',
