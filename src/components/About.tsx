@@ -18,7 +18,12 @@ const About = () => {
         .select('*')
         .order('order_index');
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching founders:', error);
+        return;
+      }
+      
+      console.log('Fetched founders data:', data);
       setFounders(data || []);
     } catch (error) {
       console.error('Error fetching founders:', error);
@@ -30,6 +35,8 @@ const About = () => {
       window.open(url, '_blank');
     }
   };
+
+  console.log('Current founders state:', founders);
 
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
@@ -45,7 +52,7 @@ const About = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {founders.map((founder, index) => (
-            <div key={index} className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+            <div key={founder.id} className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="text-center mb-6">
                 {founder.has_image && founder.image_url ? (
                   <div className="w-32 h-32 mx-auto mb-6 overflow-hidden rounded-full shadow-lg">
@@ -53,7 +60,15 @@ const About = () => {
                       src={founder.image_url} 
                       alt={founder.name}
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        console.error('Image failed to load:', founder.image_url);
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
                     />
+                    <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-4xl font-bold" style={{display: 'none'}}>
+                      {founder.avatar_text}
+                    </div>
                   </div>
                 ) : (
                   <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-4xl font-bold">

@@ -17,12 +17,19 @@ const AdvisingBody = () => {
         .select('*')
         .order('order_index');
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching advisors:', error);
+        return;
+      }
+      
+      console.log('Fetched advisors data:', data);
       setAdvisors(data || []);
     } catch (error) {
       console.error('Error fetching advisors:', error);
     }
   };
+
+  console.log('Current advisors state:', advisors);
 
   return (
     <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
@@ -39,7 +46,7 @@ const AdvisingBody = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {advisors.map((advisor, index) => (
             <div 
-              key={index}
+              key={advisor.id}
               className="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-blue-100"
             >
               <div className="text-center mb-6">
@@ -49,7 +56,15 @@ const AdvisingBody = () => {
                       src={advisor.image_url} 
                       alt={advisor.name}
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        console.error('Image failed to load:', advisor.image_url);
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
                     />
+                    <div className={`w-24 h-24 bg-gradient-to-br ${advisor.color_scheme} rounded-full mx-auto mb-6 flex items-center justify-center text-white shadow-lg`} style={{display: 'none'}}>
+                      <User className="h-12 w-12" />
+                    </div>
                   </div>
                 ) : (
                   <div className={`w-24 h-24 bg-gradient-to-br ${advisor.color_scheme} rounded-full mx-auto mb-6 flex items-center justify-center text-white shadow-lg`}>
