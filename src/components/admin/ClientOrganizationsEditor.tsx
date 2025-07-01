@@ -10,9 +10,65 @@ import { toast } from 'sonner';
 import { Plus, Trash2, Upload, Copy } from 'lucide-react';
 
 const ClientOrganizationsEditor = () => {
-  const [organizations, setOrganizations] = useState([]);
+  const [organizations, setOrganizations] = useState([
+    {
+      id: crypto.randomUUID(),
+      name: 'ProcademiX',
+      logo_text: 'PX',
+      testimonial: 'Excellent platform for learning and development.',
+      website: 'https://procademix.com',
+      rating: 5,
+      order_index: 0,
+      has_logo: false,
+      logo_url: null
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Md.Nakib Hossain',
+      logo_text: 'NH',
+      testimonial: 'Great experience with personalized learning.',
+      website: '',
+      rating: 5,
+      order_index: 1,
+      has_logo: false,
+      logo_url: null
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Tasnim Rahman',
+      logo_text: 'TR',
+      testimonial: 'Amazing support and guidance throughout.',
+      website: '',
+      rating: 5,
+      order_index: 2,
+      has_logo: false,
+      logo_url: null
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Md.Sarafat Hossain',
+      logo_text: 'SH',
+      testimonial: 'Highly recommend for quality education.',
+      website: '',
+      rating: 5,
+      order_index: 3,
+      has_logo: false,
+      logo_url: null
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Radiah Premanjita',
+      logo_text: 'RP',
+      testimonial: 'Outstanding platform with excellent mentors.',
+      website: '',
+      rating: 5,
+      order_index: 4,
+      has_logo: false,
+      logo_url: null
+    }
+  ]);
   const [sectionSettings, setSectionSettings] = useState({
-    section_title: 'Our Clients',
+    section_title: 'Our Onboarded Clients',
     section_tagline: 'Trusted By'
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -29,11 +85,11 @@ const ClientOrganizationsEditor = () => {
         .order('order_index');
       
       if (error) throw error;
-      setOrganizations(data || []);
       
-      if (data && data[0]) {
+      if (data && data.length > 0) {
+        setOrganizations(data);
         setSectionSettings({
-          section_title: data[0].section_title || 'Our Clients',
+          section_title: data[0].section_title || 'Our Onboarded Clients',
           section_tagline: data[0].section_tagline || 'Trusted By'
         });
       }
@@ -46,32 +102,28 @@ const ClientOrganizationsEditor = () => {
   const handleSave = async () => {
     setIsLoading(true);
     try {
-      // Update each organization
-      for (const org of organizations) {
-        const orgData = {
-          ...org,
-          section_title: sectionSettings.section_title,
-          section_tagline: sectionSettings.section_tagline
-        };
+      // Clear existing data first
+      const { error: deleteError } = await supabase
+        .from('client_organizations')
+        .delete()
+        .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all existing records
+      
+      if (deleteError) throw deleteError;
 
-        if (org.id && typeof org.id === 'string' && org.id.length > 0) {
-          const { error } = await supabase
-            .from('client_organizations')
-            .update(orgData)
-            .eq('id', org.id);
-          
-          if (error) throw error;
-        } else {
-          const { error } = await supabase
-            .from('client_organizations')
-            .insert(orgData);
-          
-          if (error) throw error;
-        }
-      }
+      // Insert new data
+      const orgData = organizations.map(org => ({
+        ...org,
+        section_title: sectionSettings.section_title,
+        section_tagline: sectionSettings.section_tagline
+      }));
+
+      const { error } = await supabase
+        .from('client_organizations')
+        .insert(orgData);
+      
+      if (error) throw error;
       
       toast.success('Client organizations updated successfully!');
-      // Refresh data after successful save
       await fetchOrganizations();
     } catch (error) {
       console.error('Error updating client organizations:', error);
@@ -96,23 +148,8 @@ const ClientOrganizationsEditor = () => {
   };
 
   const removeOrganization = async (id) => {
-    try {
-      // Only try to delete from database if it has a real ID
-      if (typeof id === 'string' && id.length > 0) {
-        const { error } = await supabase
-          .from('client_organizations')
-          .delete()
-          .eq('id', id);
-        
-        if (error) throw error;
-      }
-      
-      setOrganizations(organizations.filter(org => org.id !== id));
-      toast.success('Organization removed');
-    } catch (error) {
-      console.error('Error removing organization:', error);
-      toast.error('Failed to remove organization');
-    }
+    setOrganizations(organizations.filter(org => org.id !== id));
+    toast.success('Organization removed');
   };
 
   const updateOrganization = (id, field, value) => {
@@ -163,7 +200,7 @@ const ClientOrganizationsEditor = () => {
             <Input
               value={sectionSettings.section_title}
               onChange={(e) => setSectionSettings({...sectionSettings, section_title: e.target.value})}
-              placeholder="Our Clients"
+              placeholder="Our Onboarded Clients"
             />
           </div>
           <div>

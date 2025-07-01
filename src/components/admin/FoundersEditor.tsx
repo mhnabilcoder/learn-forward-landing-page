@@ -10,7 +10,41 @@ import { toast } from 'sonner';
 import { Plus, Trash2, Upload, Link } from 'lucide-react';
 
 const FoundersEditor = () => {
-  const [founders, setFounders] = useState([]);
+  const [founders, setFounders] = useState([
+    {
+      id: crypto.randomUUID(),
+      name: 'Mahedi Hasan Nabil',
+      title: 'Co-Founder & COO',
+      description: 'As a strategist at heart, I align internal operations with our vision to create seamless experiences for educators and learners.',
+      avatar_text: 'MN',
+      portfolio_url: 'https://mahedi-portfolio.com',
+      has_image: true,
+      image_url: '/lovable-uploads/2f879a8f-cf5b-4a2b-9c36-e4dee45dfcb0.png',
+      order_index: 1
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Founder 2',
+      title: 'Co-Founder & CEO',
+      description: 'Leading the vision and strategy for transforming education through technology.',
+      avatar_text: 'F2',
+      portfolio_url: '',
+      has_image: true,
+      image_url: '/lovable-uploads/ef90aa0d-99e8-4068-8331-bcad247cb460.png',
+      order_index: 2
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Founder 3',
+      title: 'Co-Founder & CTO',
+      description: 'Architecting the technical infrastructure that powers our educational platform.',
+      avatar_text: 'F3',
+      portfolio_url: '',
+      has_image: true,
+      image_url: '/lovable-uploads/c144ce34-13da-4028-a404-db140f3cc600.png',
+      order_index: 3
+    }
+  ]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -25,7 +59,10 @@ const FoundersEditor = () => {
         .order('order_index');
       
       if (error) throw error;
-      setFounders(data || []);
+      
+      if (data && data.length > 0) {
+        setFounders(data);
+      }
     } catch (error) {
       console.error('Error fetching founders:', error);
       toast.error('Failed to load founders');
@@ -60,25 +97,22 @@ const FoundersEditor = () => {
   const handleSave = async () => {
     setIsLoading(true);
     try {
-      for (const founder of founders) {
-        if (founder.id) {
-          const { error } = await supabase
-            .from('founders')
-            .update(founder)
-            .eq('id', founder.id);
-          
-          if (error) throw error;
-        } else {
-          const { error } = await supabase
-            .from('founders')
-            .insert(founder);
-          
-          if (error) throw error;
-        }
-      }
+      // Clear existing data first
+      const { error: deleteError } = await supabase
+        .from('founders')
+        .delete()
+        .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all existing records
+      
+      if (deleteError) throw deleteError;
+
+      // Insert new data
+      const { error } = await supabase
+        .from('founders')
+        .insert(founders);
+      
+      if (error) throw error;
       
       toast.success('Founders updated successfully!');
-      // Refresh data after successful save
       await fetchFounders();
     } catch (error) {
       console.error('Error updating founders:', error);
@@ -89,6 +123,7 @@ const FoundersEditor = () => {
 
   const addFounder = () => {
     const newFounder = {
+      id: crypto.randomUUID(),
       name: '',
       title: '',
       description: '',
@@ -102,25 +137,9 @@ const FoundersEditor = () => {
   };
 
   const removeFounder = async (index) => {
-    const founder = founders[index];
-    if (founder.id) {
-      try {
-        const { error } = await supabase
-          .from('founders')
-          .delete()
-          .eq('id', founder.id);
-        
-        if (error) throw error;
-        toast.success('Founder removed successfully');
-      } catch (error) {
-        console.error('Error deleting founder:', error);
-        toast.error('Failed to delete founder');
-        return;
-      }
-    }
-    
     const newFounders = founders.filter((_, i) => i !== index);
     setFounders(newFounders);
+    toast.success('Founder removed');
   };
 
   const updateFounder = (index, field, value) => {
@@ -142,7 +161,7 @@ const FoundersEditor = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         {founders.map((founder, index) => (
-          <Card key={index} className="p-4">
+          <Card key={founder.id} className="p-4">
             <div className="flex justify-between items-start mb-4">
               <h4 className="font-medium">Founder {index + 1}</h4>
               <Button

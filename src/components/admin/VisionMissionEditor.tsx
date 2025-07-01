@@ -10,12 +10,12 @@ import { toast } from 'sonner';
 const VisionMissionEditor = () => {
   const [content, setContent] = useState({
     id: '',
-    vision_title: '',
-    vision_content: '',
-    mission_title: '',
-    mission_content: '',
-    what_sets_us_apart_title: '',
-    what_sets_us_apart_content: ''
+    vision_title: 'Our Vision',
+    vision_content: 'To reshape the future of online education by empowering educators and mentors with simple tools to deliver real-time support, personalized guidance, quality education, and human connection, for a generation that doesn\'t just want content, but clarity, connection, and change.',
+    mission_title: 'Our Mission',
+    mission_content: 'To empower educators and mentors with simple, flexible tools to teach, guide, and grow on their own terms. We help students access clarity, not just content, through real conversations, personalized mentorship, and instant support, delivering the best possible learning experience. By removing the tech stress, we let mentors focus on what truly matters: solving, teaching, and making impact.',
+    what_sets_us_apart_title: 'What Sets Us Apart',
+    what_sets_us_apart_content: 'Innovation, Quality, and a Student-First Mindset\nLetting Educators Do What They Do Best\nPersonalized Learning, Aligned with Student Goals\nA Thriving Community for Support and Growth'
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -80,7 +80,7 @@ const VisionMissionEditor = () => {
             <Textarea
               value={content.vision_content}
               onChange={(e) => setContent({...content, vision_content: e.target.value})}
-              placeholder="To revolutionize education in Bangladesh"
+              placeholder="To reshape the future of online education..."
               rows={4}
             />
           </div>
@@ -101,7 +101,7 @@ const VisionMissionEditor = () => {
             <Textarea
               value={content.mission_content}
               onChange={(e) => setContent({...content, mission_content: e.target.value})}
-              placeholder="Empowering students with cutting-edge learning tools"
+              placeholder="To empower educators and mentors..."
               rows={4}
             />
           </div>
