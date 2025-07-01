@@ -12,7 +12,7 @@ const founders = [
       "As a strategist at heart, I align internal operations with long-term business growth, giving ideas a clear structure, commercial direction, and the ability to scale. My focus is on building systems that make innovation sustainable.",
     image_url: "https://edcluster12.b-cdn.net/demo/513771098_2195229314253580_7542455361396977482_n.jpg",
     has_image: true,
-    portfolio_url: "https://example.com/mahedi-portfolio"
+    portfolio_url: "https://mhnabil.edcluster.com/"
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const founders = [
       "Passionate about building innovative educational solutions that not only make learning accessible to all, but also deliver a seamless user experience, with a vision to unify the fragmented education market under one powerful, integrated platform.",
     image_url: "https://edcluster12.b-cdn.net/demo/adnan.jpg",
     has_image: true,
-    portfolio_url: "https://example.com/adnan-portfolio"
+    portfolio_url: "https://www.linkedin.com/in/adnan-shihab-5a1749267/"
   }
 ];
 
