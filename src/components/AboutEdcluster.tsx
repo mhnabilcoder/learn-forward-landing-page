@@ -1,6 +1,19 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { Users, Target, Award, Heart, BookOpen, Star, Zap, Shield, Layers } from 'lucide-react';
+
+const iconMap = {
+  Users, Target, Award, Heart, BookOpen, Star, Zap, Shield, Layers
+};
+
+const colorSchemes = {
+  blue: 'from-blue-500 to-blue-600',
+  purple: 'from-purple-500 to-purple-600',
+  green: 'from-green-500 to-green-600',
+  red: 'from-red-500 to-red-600',
+  indigo: 'from-indigo-500 to-indigo-600'
+};
 
 const AboutEdcluster = () => {
   const [content, setContent] = useState({
@@ -11,9 +24,12 @@ const AboutEdcluster = () => {
     what_sets_us_apart_title: 'What Sets Us Apart',
     what_sets_us_apart_content: 'Innovation, Quality, and a Student-First Mindset\nLetting Educators Do What They Do Best\nPersonalized Learning, Aligned with Student Goals\nA Thriving Community for Support and Growth'
   });
+  
+  const [tiles, setTiles] = useState([]);
 
   useEffect(() => {
     fetchContent();
+    fetchTiles();
   }, []);
 
   const fetchContent = async () => {
@@ -33,6 +49,23 @@ const AboutEdcluster = () => {
       }
     } catch (error) {
       console.error('Error fetching vision/mission content:', error);
+    }
+  };
+
+  const fetchTiles = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('about_tiles')
+        .select('*')
+        .order('order_index');
+      
+      if (error) throw error;
+      
+      if (data) {
+        setTiles(data);
+      }
+    } catch (error) {
+      console.error('Error fetching tiles:', error);
     }
   };
 
@@ -59,36 +92,29 @@ const AboutEdcluster = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Left side - Tiles */}
-          <div className="space-y-6">
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-6 border border-blue-200">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mb-4 flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-                </svg>
-              </div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-2">Community Driven</h4>
-              <p className="text-gray-600 text-sm">Join a vibrant community of learners, mentors, and industry professionals.</p>
-            </div>
-
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl p-6 border border-purple-200">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full mb-4 flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-2">Goal Oriented</h4>
-              <p className="text-gray-600 text-sm">Every course designed with clear learning objectives and practical outcomes.</p>
-            </div>
-
-            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-3xl p-6 border border-green-200">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full mb-4 flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                </svg>
-              </div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-2">Excellence First</h4>
-              <p className="text-gray-600 text-sm">Highest standards in content quality, instructor expertise, and student success.</p>
-            </div>
+          <div className="space-y-4">
+            {tiles.map((tile) => {
+              const IconComponent = iconMap[tile.icon_name] || Users;
+              const gradientClass = colorSchemes[tile.color_scheme] || colorSchemes.blue;
+              const bgColorClass = tile.color_scheme === 'blue' ? 'from-blue-50 to-blue-100 border-blue-200' :
+                                  tile.color_scheme === 'purple' ? 'from-purple-50 to-purple-100 border-purple-200' :
+                                  tile.color_scheme === 'green' ? 'from-green-50 to-green-100 border-green-200' :
+                                  tile.color_scheme === 'red' ? 'from-red-50 to-red-100 border-red-200' :
+                                  'from-indigo-50 to-indigo-100 border-indigo-200';
+              
+              return (
+                <div
+                  key={tile.id}
+                  className={`bg-gradient-to-br ${bgColorClass} rounded-3xl p-6 border`}
+                >
+                  <div className={`w-12 h-12 bg-gradient-to-br ${gradientClass} rounded-full mb-4 flex items-center justify-center`}>
+                    <IconComponent className="w-6 h-6 text-white" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">{tile.title}</h4>
+                  <p className="text-gray-600 text-sm">{tile.description}</p>
+                </div>
+              );
+            })}
           </div>
 
           {/* Right side - Vision, Mission, What Sets Us Apart */}
