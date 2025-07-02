@@ -58,8 +58,10 @@ const About = () => {
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         console.error('Image failed to load:', founder.image_url);
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const nextSibling = target.nextSibling as HTMLElement;
+                        if (nextSibling) nextSibling.style.display = 'flex';
                       }}
                     />
                     <div
