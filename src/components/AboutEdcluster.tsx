@@ -91,8 +91,16 @@ const AboutEdcluster = () => {
             </div>
           </div>
 
-          {/* Right side - Mission, Vision, What Sets Us Apart */}
+          {/* Right side - Vision, Mission, What Sets Us Apart */}
           <div className="space-y-8">
+            {/* Vision */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">{content.vision_title}</h3>
+              <p className="text-gray-600 leading-relaxed mb-6">
+                {content.vision_content}
+              </p>
+            </div>
+
             {/* Mission */}
             <div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">{content.mission_title}</h3>
