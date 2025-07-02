@@ -152,6 +152,7 @@ const AboutEdcluster = () => {
             </div>
 
             {/* Visit Platform Button */}
+            {/*
             <div>
               <a href="https://edcluster.com/" target="_blank" rel="noopener noreferrer">
                 <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
@@ -159,6 +160,7 @@ const AboutEdcluster = () => {
                 </button>
               </a>
             </div>
+            */}
           </div>
         </div>
       </div>
