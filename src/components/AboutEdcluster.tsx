@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Users, Target, Award, Heart, BookOpen, Star, Zap, Shield, Layers } from 'lucide-react';
@@ -154,9 +153,11 @@ const AboutEdcluster = () => {
 
             {/* Visit Platform Button */}
             <div>
-              <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
-                Visit The Platform
-              </button>
+              <a href="https://platform.edcluster.com" target="_blank" rel="noopener noreferrer">
+                <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                  Visit The Platform
+                </button>
+              </a>
             </div>
           </div>
         </div>
