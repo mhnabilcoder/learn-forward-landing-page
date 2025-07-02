@@ -68,7 +68,7 @@ const Features = () => {
             return (
               <div
                 key={feature.id}
-                className="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
               >
                 <div className={`w-16 h-16 bg-gradient-to-br ${gradientClass} rounded-full mx-auto mb-6 flex items-center justify-center`}>
                   <IconComponent className="w-8 h-8 text-white" />
