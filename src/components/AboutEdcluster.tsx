@@ -91,7 +91,7 @@ const AboutEdcluster = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Left side - Tiles */}
-          <div className="space-y-3">
+          <div className="space-y-2">
             {tiles.map((tile) => {
               const IconComponent = iconMap[tile.icon_name] || Users;
               const gradientClass = colorSchemes[tile.color_scheme] || colorSchemes.blue;
@@ -104,13 +104,13 @@ const AboutEdcluster = () => {
               return (
                 <div
                   key={tile.id}
-                  className={`bg-gradient-to-br ${bgColorClass} rounded-3xl p-4 border`}
+                  className={`bg-gradient-to-br ${bgColorClass} rounded-2xl p-3 border`}
                 >
-                  <div className={`w-12 h-12 bg-gradient-to-br ${gradientClass} rounded-full mb-4 flex items-center justify-center`}>
-                    <IconComponent className="w-6 h-6 text-white" />
+                  <div className={`w-10 h-10 bg-gradient-to-br ${gradientClass} rounded-full mb-2 flex items-center justify-center`}>
+                    <IconComponent className="w-5 h-5 text-white" />
                   </div>
-                  <h4 className="text-lg font-semibold text-gray-900 mb-2">{tile.title}</h4>
-                  <p className="text-gray-600 text-sm">{tile.description}</p>
+                  <h4 className="text-base font-semibold text-gray-900 mb-1">{tile.title}</h4>
+                  <p className="text-gray-600 text-xs leading-relaxed">{tile.description}</p>
                 </div>
               );
             })}
