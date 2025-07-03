@@ -49,7 +49,7 @@ const Features = () => {
   if (features.length === 0) return null;
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -68,7 +68,7 @@ const Features = () => {
             return (
               <div
                 key={feature.id}
-                className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-white/30 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:bg-white/90"
               >
                 <div className={`w-16 h-16 bg-gradient-to-br ${gradientClass} rounded-full mx-auto mb-6 flex items-center justify-center`}>
                   <IconComponent className="w-8 h-8 text-white" />
